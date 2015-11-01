@@ -46,5 +46,19 @@
   		</artifactId>
   		<version>1.7.0</version>
   	</dependency>
+  	<dependency>
+  		<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+  		<artifactId>
+  			de.tudarmstadt.ukp.dkpro.core.langdetect-model-languageidentifier-any-wikipedia
+  		</artifactId>
+  		<version>20141013.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+  		<artifactId>
+  			de.tudarmstadt.ukp.dkpro.core.langdetect-model-languageidentifier-any-socialmedia
+  		</artifactId>
+  		<version>20141013.1</version>
+  	</dependency>
   </dependencies>
 </project>
