@@ -1,3 +1,4 @@
 Das ist ein Test.	de
 Dieser hier ebenfalls.	de
 C'est une texte.	fr
+This is a test.	en

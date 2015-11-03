@@ -43,6 +43,7 @@ public class LanguageDetectorPipeline
     {
     		
         String web1TBaseDir = new DkproContext().getWorkspace("Web1T").getAbsolutePath();
+        String wikiBaseDir = new DkproContext().getWorkspace("wiki").getAbsolutePath();
     	
 //        JWeb1TIndexer indexCreator = new JWeb1TIndexer(web1TBaseDir + "/Euro/fr", 1);
 //        indexCreator.create();
@@ -70,6 +71,13 @@ public class LanguageDetectorPipeline
                                     Web1TFrequencyCountResource.PARAM_MIN_NGRAM_LEVEL, "1",
                                     Web1TFrequencyCountResource.PARAM_MAX_NGRAM_LEVEL, "1",
                                     Web1TFrequencyCountResource.PARAM_LANGUAGE, "fr"
+                            ),
+                            createExternalResourceDescription(
+                                    Web1TFrequencyCountResource.class,
+                                    Web1TFrequencyCountResource.PARAM_INDEX_PATH, wikiBaseDir + "/en",
+                                    Web1TFrequencyCountResource.PARAM_MIN_NGRAM_LEVEL, "1",
+                                    Web1TFrequencyCountResource.PARAM_MAX_NGRAM_LEVEL, "1",
+                                    Web1TFrequencyCountResource.PARAM_LANGUAGE, "en"
                             )
                      )
                 )
