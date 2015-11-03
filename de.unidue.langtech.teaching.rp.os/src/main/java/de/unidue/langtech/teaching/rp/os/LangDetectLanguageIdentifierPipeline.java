@@ -27,6 +27,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.jcas.JCas;
 
+import de.tudarmstadt.ukp.dkpro.core.langdetect.LangDetectLanguageIdentifier;
+
 
 public
 class LangDetectLanguageIdentifierPipeline
