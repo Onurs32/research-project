@@ -1,4 +1,4 @@
-package de.unidue.langtech.teaching.rp.os;
+package de.unidue.langtech.teaching.rp.basic;
 
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase;

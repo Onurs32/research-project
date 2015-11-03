@@ -1,4 +1,4 @@
-package de.unidue.langtech.teaching.rp.os;
+package de.unidue.langtech.teaching.rp.basic;
 
 import java.io.File;
 import java.io.IOException;

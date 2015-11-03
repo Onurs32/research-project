@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package de.unidue.langtech.teaching.rp.os;
+package de.unidue.langtech.teaching.rp.pipeline;
 
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngine;
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription;
@@ -27,11 +27,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.jcas.JCas;
 
-import de.tudarmstadt.ukp.dkpro.core.langdetect.LangDetectLanguageIdentifier;
-
+import de.tudarmstadt.ukp.dkpro.core.textcat.LanguageIdentifier;
 
 public
-class LangDetectLanguageIdentifierPipeline
+class LanguageIdentifierPipeline
 {
 
 	public static void main(String[] args)
@@ -39,7 +38,7 @@ class LangDetectLanguageIdentifierPipeline
 	{
         AnalysisEngine engine = createEngine(
                     createEngineDescription(
-                    	LangDetectLanguageIdentifier.class
+                        LanguageIdentifier.class
                          )
                     );
         

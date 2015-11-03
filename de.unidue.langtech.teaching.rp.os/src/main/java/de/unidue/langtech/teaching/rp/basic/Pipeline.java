@@ -1,4 +1,4 @@
-package de.unidue.langtech.teaching.rp.os;
+package de.unidue.langtech.teaching.rp.basic;
 
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription;
 import static org.apache.uima.fit.factory.CollectionReaderFactory.createReaderDescription;
