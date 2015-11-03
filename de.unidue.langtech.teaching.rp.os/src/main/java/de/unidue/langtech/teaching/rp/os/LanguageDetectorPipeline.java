@@ -53,8 +53,8 @@ public class LanguageDetectorPipeline
                         BreakIteratorSegmenter.class
                 ),
                 createEngineDescription(
-                    LanguageDetector.class,
-                    LanguageDetector.PARAM_FREQUENCY_PROVIDER_RESOURCES, 
+                	LanguageDetectorWeb1T.class,
+                	LanguageDetectorWeb1T.PARAM_FREQUENCY_PROVIDER_RESOURCES, 
                     Arrays.asList(
                             createExternalResourceDescription(
                                     Web1TFrequencyCountResource.class,
