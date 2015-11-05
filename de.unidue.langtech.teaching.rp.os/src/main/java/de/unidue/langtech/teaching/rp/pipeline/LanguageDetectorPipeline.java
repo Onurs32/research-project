@@ -23,11 +23,15 @@ import static org.apache.uima.fit.factory.ExternalResourceFactory.createExternal
 
 import java.io.File;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.jcas.JCas;
+
+import com.googlecode.jweb1t.JWeb1TIndexer;
 
 import de.tudarmstadt.ukp.dkpro.core.api.resources.DkproContext;
 import de.tudarmstadt.ukp.dkpro.core.frequency.resources.Web1TFrequencyCountResource;
@@ -44,9 +48,12 @@ public class LanguageDetectorPipeline
     		
         String web1TBaseDir = new DkproContext().getWorkspace("Web1T").getAbsolutePath();
         String wikiBaseDir = new DkproContext().getWorkspace("wiki").getAbsolutePath();
-    	
-//        JWeb1TIndexer indexCreator = new JWeb1TIndexer(web1TBaseDir + "/Euro/fr", 1);
-//        indexCreator.create();
+//    	
+//        JWeb1TIndexer indexCreatorNl = new JWeb1TIndexer(web1TBaseDir + "/Euro/nl", 1);
+//        indexCreatorNl.create();
+//        
+//        JWeb1TIndexer indexCreatorEs = new JWeb1TIndexer(web1TBaseDir + "/Euro/es", 1);
+//        indexCreatorEs.create();
         
 
         AnalysisEngine engine = createEngine(
@@ -78,6 +85,20 @@ public class LanguageDetectorPipeline
                                     Web1TFrequencyCountResource.PARAM_MIN_NGRAM_LEVEL, "1",
                                     Web1TFrequencyCountResource.PARAM_MAX_NGRAM_LEVEL, "1",
                                     Web1TFrequencyCountResource.PARAM_LANGUAGE, "en"
+                            ),
+                            createExternalResourceDescription(
+                                    Web1TFrequencyCountResource.class,
+                                    Web1TFrequencyCountResource.PARAM_INDEX_PATH, web1TBaseDir + "/Euro/nl",
+                                    Web1TFrequencyCountResource.PARAM_MIN_NGRAM_LEVEL, "1",
+                                    Web1TFrequencyCountResource.PARAM_MAX_NGRAM_LEVEL, "1",
+                                    Web1TFrequencyCountResource.PARAM_LANGUAGE, "nl"
+                            ),
+                            createExternalResourceDescription(
+                                    Web1TFrequencyCountResource.class,
+                                    Web1TFrequencyCountResource.PARAM_INDEX_PATH, web1TBaseDir + "/Euro/es",
+                                    Web1TFrequencyCountResource.PARAM_MIN_NGRAM_LEVEL, "1",
+                                    Web1TFrequencyCountResource.PARAM_MAX_NGRAM_LEVEL, "1",
+                                    Web1TFrequencyCountResource.PARAM_LANGUAGE, "es"
                             )
                      )
                 )
@@ -88,14 +109,13 @@ public class LanguageDetectorPipeline
         double nrOfCorrectOnes = 0;
         NumberFormat defaultFormat = NumberFormat.getPercentInstance();
 		defaultFormat.setMinimumFractionDigits(2);
-        
-                  
-        
-        for (String line : FileUtils.readLines(new File("src/main/resources/test.txt"))) {
+		List<String> falseDetected = new ArrayList<String>();
+                 
+        for (String line : FileUtils.readLines(new File("D:/_Projekt_Korpora/Corpus 2 - Twitter/ground-truth_trn.txt"))) {
         	nrOfLines++;
             String[] parts = line.split("\t");
-            String text = parts[0];
-            String language = parts[1];
+            String text = parts[1];
+            String language = parts[2];
             
             JCas aJCas = engine.newJCas();
             aJCas.setDocumentText(text);
@@ -103,14 +123,21 @@ public class LanguageDetectorPipeline
             
             String[] languageParts = aJCas.getDocumentLanguage().split("/");
             String casLanguage = languageParts[languageParts.length-1];
-
+            
+            System.out.println(aJCas.getDocumentText());
             System.out.println("Language: " + language + "\n" + "Detected Language: " + casLanguage);
             if (language.equals(casLanguage)) {
             	nrOfCorrectOnes++;
+            } else {
+            	falseDetected.add(aJCas.getDocumentText()+ "\t" + language + "\t" + casLanguage);
             }
         }  
         
         System.out.println("Accuracy: " + defaultFormat.format(nrOfCorrectOnes/nrOfLines));
+        
+        for (String falseOnes : falseDetected) {
+        	System.out.println(falseOnes + "\n");
+        }
     }
     
 }
