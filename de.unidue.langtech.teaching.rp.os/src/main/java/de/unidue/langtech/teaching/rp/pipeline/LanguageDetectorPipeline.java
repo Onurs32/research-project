@@ -34,6 +34,8 @@ import org.apache.uima.jcas.JCas;
 import com.googlecode.jweb1t.JWeb1TIndexer;
 
 import de.tudarmstadt.ukp.dkpro.core.api.resources.DkproContext;
+import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetPosTagger;
+import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
 import de.tudarmstadt.ukp.dkpro.core.frequency.resources.Web1TFrequencyCountResource;
 import de.tudarmstadt.ukp.dkpro.core.tokit.BreakIteratorSegmenter;
 import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1T;
@@ -47,19 +49,16 @@ public class LanguageDetectorPipeline
     {
     		
         String web1TBaseDir = new DkproContext().getWorkspace("Web1T").getAbsolutePath();
-        String wikiBaseDir = new DkproContext().getWorkspace("wiki").getAbsolutePath();
-//    	
-//        JWeb1TIndexer indexCreatorNl = new JWeb1TIndexer(web1TBaseDir + "/Euro/nl", 1);
-//        indexCreatorNl.create();
-//        
-//        JWeb1TIndexer indexCreatorEs = new JWeb1TIndexer(web1TBaseDir + "/Euro/es", 1);
-//        indexCreatorEs.create();
-        
+	
+//        JWeb1TIndexer indexCreatorEn = new JWeb1TIndexer(web1TBaseDir + "/Euro/en", 1);
+//        indexCreatorEn.create();
+//     
+
 
         AnalysisEngine engine = createEngine(
             createEngineDescription(
                 createEngineDescription(
-                        BreakIteratorSegmenter.class
+                        ArktweetTokenizer.class
                 ),
                 createEngineDescription(
                 	LanguageDetectorWeb1T.class,
@@ -81,7 +80,7 @@ public class LanguageDetectorPipeline
                             ),
                             createExternalResourceDescription(
                                     Web1TFrequencyCountResource.class,
-                                    Web1TFrequencyCountResource.PARAM_INDEX_PATH, wikiBaseDir + "/en",
+                                    Web1TFrequencyCountResource.PARAM_INDEX_PATH, web1TBaseDir + "/Euro/en",
                                     Web1TFrequencyCountResource.PARAM_MIN_NGRAM_LEVEL, "1",
                                     Web1TFrequencyCountResource.PARAM_MAX_NGRAM_LEVEL, "1",
                                     Web1TFrequencyCountResource.PARAM_LANGUAGE, "en"
@@ -111,7 +110,7 @@ public class LanguageDetectorPipeline
 		defaultFormat.setMinimumFractionDigits(2);
 		List<String> falseDetected = new ArrayList<String>();
                  
-        for (String line : FileUtils.readLines(new File("D:/_Projekt_Korpora/Corpus 2 - Twitter/ground-truth_trn.txt"))) {
+        for (String line : FileUtils.readLines(new File("D:/corpus.txt"))) {
         	nrOfLines++;
             String[] parts = line.split("\t");
             String text = parts[1];
