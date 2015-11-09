@@ -34,7 +34,6 @@ import org.apache.uima.jcas.JCas;
 import com.googlecode.jweb1t.JWeb1TIndexer;
 
 import de.tudarmstadt.ukp.dkpro.core.api.resources.DkproContext;
-import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetPosTagger;
 import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
 import de.tudarmstadt.ukp.dkpro.core.frequency.resources.Web1TFrequencyCountResource;
 import de.tudarmstadt.ukp.dkpro.core.tokit.BreakIteratorSegmenter;
@@ -110,7 +109,7 @@ public class LanguageDetectorPipeline
 		defaultFormat.setMinimumFractionDigits(2);
 		List<String> falseDetected = new ArrayList<String>();
                  
-        for (String line : FileUtils.readLines(new File("D:/corpus.txt"))) {
+        for (String line : FileUtils.readLines(new File("D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.trn"))) {
         	nrOfLines++;
             String[] parts = line.split("\t");
             String text = parts[1];
