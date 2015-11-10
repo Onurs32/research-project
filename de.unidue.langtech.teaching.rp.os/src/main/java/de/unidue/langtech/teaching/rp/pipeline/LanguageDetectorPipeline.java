@@ -112,8 +112,8 @@ public class LanguageDetectorPipeline
         for (String line : FileUtils.readLines(new File("D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.trn"))) {
         	nrOfLines++;
             String[] parts = line.split("\t");
-            String text = parts[0];
-            String language = parts[1];
+            String text = parts[1];
+            String language = parts[2];
             
             JCas aJCas = engine.newJCas();
             aJCas.setDocumentText(text);
