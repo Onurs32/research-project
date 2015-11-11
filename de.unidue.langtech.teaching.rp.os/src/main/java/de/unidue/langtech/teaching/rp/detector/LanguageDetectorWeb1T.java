@@ -106,8 +106,15 @@ public class LanguageDetectorWeb1T
 //            ngrams.add(getNgram(BOS, words.get(0), words.get(1)));
 //        }
         
+//        for (String ngram : new NGramStringIterable(words, 1, 1)) {
+//            ngrams.add(ngram);
+//        }
+        
         for (String ngram : new NGramStringIterable(words, 1, 1)) {
+        	ngram = ngram.replaceAll("#", "").replaceAll("RT", "");
+        	if (ngram.length()>1 && !(ngram.startsWith("@")) && !(ngram.startsWith("http"))){
             ngrams.add(ngram);
+        	}
         }
                 
         try {
