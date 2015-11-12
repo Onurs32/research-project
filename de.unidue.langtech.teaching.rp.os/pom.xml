@@ -13,12 +13,6 @@
   	<dependency>
   		<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
   		<artifactId>
-  			de.tudarmstadt.ukp.dkpro.core.langdetect-asl
-  		</artifactId>
-  	</dependency>
-  	<dependency>
-  		<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
-  		<artifactId>
   			de.tudarmstadt.ukp.dkpro.core.io.text-asl
   		</artifactId>
   	</dependency>
@@ -70,6 +64,11 @@
   			de.tudarmstadt.ukp.dkpro.core.arktools-gpl
   		</artifactId>
   		<version>1.7.0</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.optimaize.languagedetector</groupId>
+  		<artifactId>language-detector</artifactId>
+  		<version>0.5</version>
   	</dependency>
   </dependencies>
   <dependencyManagement>
