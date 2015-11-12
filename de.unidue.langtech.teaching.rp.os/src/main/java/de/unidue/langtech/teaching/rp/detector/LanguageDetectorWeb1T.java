@@ -20,9 +20,14 @@ package de.unidue.langtech.teaching.rp.detector;
 import static de.tudarmstadt.ukp.dkpro.core.frequency.Web1TProviderBase.BOS;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.uima.UimaContext;
@@ -118,18 +123,39 @@ public class LanguageDetectorWeb1T
         }
                 
         try {
-            Map<String,Double> langProbs = getLanguageProbabilities(ngrams);
-            
+        	
+        	Map<String,Double> langProbs = getSingleLanguageProbabilities(ngrams, false);
+            Double maxLanguageValue = 0.0;
             String maxLanguage = "x-unspecified";
-            double maxLogProb = Double.NEGATIVE_INFINITY;
+            if (langProbs.values().size() > 0) {
+            maxLanguageValue = Collections.max(langProbs.values());
+            
             for (String lang : langProbs.keySet()) {
                 double prob = langProbs.get(lang);
-                if (prob > maxLogProb) {
-                    maxLogProb = prob;
+                if (langProbs.get(lang).equals(maxLanguageValue)) {
                     maxLanguage = lang;
                 }
                 System.out.println(lang + " - " + prob);
             }
+            
+            }
+            
+            if (hasDuplicates(langProbs)) {
+            	
+            	langProbs = getLanguageProbabilities(ngrams);
+            	
+                double maxLogProb = Double.NEGATIVE_INFINITY;
+                for (String lang : langProbs.keySet()) {
+                    double prob = langProbs.get(lang);
+                    if (prob > maxLogProb) {
+                        maxLogProb = prob;
+                        maxLanguage = lang;
+                    }
+                    System.out.println(lang + " - " + prob);
+                }
+                
+            }	
+            
             jcas.setDocumentLanguage(maxLanguage);
         }
         catch (Exception e) {
@@ -137,12 +163,73 @@ public class LanguageDetectorWeb1T
         }
     }
     
+    private Map<String,Double> getSingleLanguageProbabilities(List<String> ngrams, boolean multipleMaximums)
+            throws Exception
+    {
+    	
+    	 Map<String,Double> textLogProbability = new HashMap<String,Double>();
+       
+        for (String ngram : ngrams) {
+        	
+            TreeMap<Double,String> langProbs = new TreeMap<Double,String>();
+        	
+                                    
+        	 double logProb = 0.0;
+
+            for (String lang : providerMap.keySet()) {
+            	
+            	
+                FrequencyCountProvider provider = providerMap.get(lang);
+                
+                long nrOfUnigrams = provider.getNrOfNgrams(1);
+                long nrOfBigrams  = provider.getNrOfNgrams(2);
+                long nrOfTrigrams = provider.getNrOfNgrams(3);
+                
+       
+                
+                long frequency = provider.getFrequency(ngram);
+
+                int ngramSize = FrequencyUtils.getPhraseLength(ngram);
+                                
+                long normalization = 1;
+                int weighting = 1;
+                if (ngramSize == 1) {
+                    normalization = nrOfUnigrams;
+                }
+                else if (ngramSize == 2) {
+                    weighting = 2;
+                    normalization = nrOfBigrams;
+                }
+                else if (ngramSize == 3) {
+                    weighting = 4;
+                    normalization = nrOfTrigrams;
+                }
+    
+                if (frequency > 0) {
+                    logProb = Math.log( weighting * ((double) frequency) / normalization );
+                    
+                }
+                else {
+                	logProb = Math.log( 1.0 / normalization);
+                }
+                
+                langProbs.put(logProb,lang);
+                System.out.println("Ngram: " + ngram + "\tLang: " + lang + "\tProb: " + logProb + "\tFrequency: " + frequency);
+
+            }
+            
+            	setTextProbability(langProbs, textLogProbability); 
+        }
+        
+        return textLogProbability;
+    }
+    
     private Map<String,Double> getLanguageProbabilities(List<String> ngrams)
             throws Exception
     {
         Map<String,Double> langProbs = new HashMap<String,Double>();
        
-        for (String lang : providerMap.keySet()) {
+        for (String lang : providerMap.keySet()) { 
                                     
             FrequencyCountProvider provider = providerMap.get(lang);
             
@@ -180,8 +267,9 @@ public class LanguageDetectorWeb1T
                 else {
                     textLogProbability += Math.log( 1.0 / normalization);
                 }
+                
             }
-            
+          
             langProbs.put(lang, textLogProbability);
         }
         
@@ -191,4 +279,45 @@ public class LanguageDetectorWeb1T
     private String getNgram(String ...strings) {
         return StringUtils.join(strings, " ");
     }
+    
+    private void setTextProbability(TreeMap<Double,String> langProbs, Map<String,Double> textLogProbability) {
+    	
+        System.out.println("LangProb: " + langProbs);
+        System.out.println("Highest Prob: " + langProbs.lastEntry());
+        Double previousValue = textLogProbability.get(langProbs.get(langProbs.lastKey()));
+        if (previousValue == null ){
+        	previousValue = 0.0;
+        }
+        textLogProbability.put(langProbs.get(langProbs.lastKey()), 1 + previousValue);
+        System.out.println("TextLogProb: " + textLogProbability);
+    	
+    }
+    
+    
+    private boolean hasDuplicates(Map<String, Double> map){
+    	
+    	boolean status = false;
+    	
+    	List<String> maxEntrys = new ArrayList<String>();
+    	
+    	if (map.values().size() > 0) {
+        double maxValueInMap =(Collections.max(map.values()));  
+        for (Entry<String, Double> entry : map.entrySet()) {  
+            if (entry.getValue() == maxValueInMap) {
+            	maxEntrys.add(entry.getKey());     
+            }
+        }
+    	}
+    	
+        if (maxEntrys.size() > 1) {
+        	status = true;
+        } 
+        
+        if (status == true) {
+            System.err.println("Single language probabilities method could not clearly resolve language. \nStarting default method.");
+        }
+        
+    	    return status;
+
+    	}
 }
