@@ -20,7 +20,7 @@ import org.apache.uima.jcas.JCas;
 
 /**
  * Identifies the language of a document with Optimaize Language-Detector.
- * @author Onur
+ *
  *
  */
 @SuppressWarnings("deprecation")
