@@ -70,6 +70,13 @@
   		<artifactId>language-detector</artifactId>
   		<version>0.5</version>
   	</dependency>
+  	<dependency>
+  		<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+  		<artifactId>
+  			de.tudarmstadt.ukp.dkpro.core.gate-gpl
+  		</artifactId>
+  		<version>1.7.0</version>
+  	</dependency>
   </dependencies>
   <dependencyManagement>
   	<dependencies>
