@@ -77,6 +77,11 @@
   		</artifactId>
   		<version>1.7.0</version>
   	</dependency>
+  	<dependency>
+  		<groupId>me.champeau.jlangdetect</groupId>
+  		<artifactId>jlangdetect-extra</artifactId>
+  		<version>0.4</version>
+  	</dependency>
   </dependencies>
   <dependencyManagement>
   	<dependencies>
@@ -89,4 +94,11 @@
   		</dependency>
   	</dependencies>
   </dependencyManagement>
+  <repositories>
+  <repository>
+  <id>jlangdetect-googlecode</id>
+  <name>JLangDetect Maven repository</name>
+  <url>https://jlangdetect.googlecode.com/svn/repo</url>
+</repository>
+</repositories>
 </project>
