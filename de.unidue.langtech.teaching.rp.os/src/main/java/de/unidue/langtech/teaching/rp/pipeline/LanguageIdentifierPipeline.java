@@ -29,7 +29,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.jcas.JCas;
 
-import de.tudarmstadt.ukp.dkpro.core.textcat.LanguageIdentifier;
+import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
+
 
 
 
@@ -42,7 +43,8 @@ class LanguageIdentifierPipeline
 	{
         AnalysisEngine engine = createEngine(
                     createEngineDescription(
-                        LanguageIdentifier.class
+                        LanguageIdentifier.class,
+                        LanguageIdentifier.PARAM_CONFIG_FILE, "src/main/resources/textcat_tweetlid.conf"
                          )
                     );
         
@@ -52,7 +54,7 @@ class LanguageIdentifierPipeline
 		defaultFormat.setMinimumFractionDigits(2);
 		List<String> falseDetected = new ArrayList<String>();
                  
-        for (String line : FileUtils.readLines(new File("D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.tst"))) {
+        for (String line : FileUtils.readLines(new File("D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.trn"))) {
         	nrOfLines++;
             String[] parts = line.split("\t");
             String text = parts[1];
