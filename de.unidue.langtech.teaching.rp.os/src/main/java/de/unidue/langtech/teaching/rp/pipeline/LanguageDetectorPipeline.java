@@ -97,6 +97,13 @@ public class LanguageDetectorPipeline
                                     Web1TFrequencyCountResource.PARAM_MIN_NGRAM_LEVEL, "1",
                                     Web1TFrequencyCountResource.PARAM_MAX_NGRAM_LEVEL, "1",
                                     Web1TFrequencyCountResource.PARAM_LANGUAGE, "es"
+                            ),
+                            createExternalResourceDescription(
+                                    Web1TFrequencyCountResource.class,
+                                    Web1TFrequencyCountResource.PARAM_INDEX_PATH, web1TBaseDir + "/Euro/sv",
+                                    Web1TFrequencyCountResource.PARAM_MIN_NGRAM_LEVEL, "1",
+                                    Web1TFrequencyCountResource.PARAM_MAX_NGRAM_LEVEL, "1",
+                                    Web1TFrequencyCountResource.PARAM_LANGUAGE, "sv"
                             )
                      )
                 )
