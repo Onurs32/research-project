@@ -57,9 +57,9 @@ public class OptimaizeLangDetect extends JCasAnnotator_ImplBase {
 	
 	private LanguageDetector makeNewDetector() throws IOException {
         LanguageDetectorBuilder builder = LanguageDetectorBuilder.create(NgramExtractors.standard());
-        builder.shortTextAlgorithm(50);
-        builder.prefixFactor(1.5);
-        builder.suffixFactor(2.0);
+//        builder.shortTextAlgorithm(50);
+//        builder.prefixFactor(1.5);
+//        builder.suffixFactor(2.0);
 
         LangProfileReader langProfileReader = new LangProfileReader();
         for (String language : languages) {
