@@ -120,23 +120,25 @@ public class LanguageDetectorWeb1T
                 
         try {
         	
-        	Map<String,Double> langProbs = getSingleLanguageProbabilities(ngrams, false);
-            Double maxLanguageValue = 0.0;
-            String maxLanguage = "x-unspecified";
-            if (langProbs.values().size() > 0) {
-            maxLanguageValue = Collections.max(langProbs.values());
+        	Map<String,Double> langProbs;
+        	String maxLanguage = "x-unspecified";
+        	
+//        	langProbs = getSingleLanguageProbabilities(ngrams, false);
+//            Double maxLanguageValue = 0.0;
+//            if (langProbs.values().size() > 0) {
+//            maxLanguageValue = Collections.max(langProbs.values());
+//            
+//            for (String lang : langProbs.keySet()) {
+//                double prob = langProbs.get(lang);
+//                if (langProbs.get(lang).equals(maxLanguageValue)) {
+//                    maxLanguage = lang;
+//                }
+//                System.out.println(lang + " - " + prob);
+//            }
+//            
+//            }
             
-            for (String lang : langProbs.keySet()) {
-                double prob = langProbs.get(lang);
-                if (langProbs.get(lang).equals(maxLanguageValue)) {
-                    maxLanguage = lang;
-                }
-                System.out.println(lang + " - " + prob);
-            }
-            
-            }
-            
-            if (hasDuplicates(langProbs)) {
+//            if (hasDuplicates(langProbs)) {
             	
             	langProbs = getLanguageProbabilities(ngrams);
             	
@@ -150,7 +152,7 @@ public class LanguageDetectorWeb1T
                     System.out.println(lang + " - " + prob);
                 }
                 
-            }	
+//            }	
             
             jcas.setDocumentLanguage(maxLanguage);
         }
