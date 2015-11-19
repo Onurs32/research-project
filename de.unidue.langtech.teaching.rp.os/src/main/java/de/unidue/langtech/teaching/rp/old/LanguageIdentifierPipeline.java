@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package de.unidue.langtech.teaching.rp.pipeline;
+package de.unidue.langtech.teaching.rp.old;
 
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngine;
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription;
@@ -29,10 +29,13 @@ import org.apache.commons.io.FileUtils;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.jcas.JCas;
 
-import de.unidue.langtech.teaching.rp.detector.OptimaizeLangDetect;
+import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
+
+
+
 
 public
-class OptimaizeLangDetectPipeline
+class LanguageIdentifierPipeline
 {
 
 	public static void main(String[] args)
@@ -40,8 +43,8 @@ class OptimaizeLangDetectPipeline
 	{
         AnalysisEngine engine = createEngine(
                     createEngineDescription(
-                    	OptimaizeLangDetect.class,
-                    	OptimaizeLangDetect.PARAM_LANGUAGES, new String[]{"en", "fr", "es", "de", "nl"}
+                        LanguageIdentifier.class,
+                        LanguageIdentifier.PARAM_CONFIG_FILE, "src/main/resources/textcat_tweetlid.conf"
                          )
                     );
         

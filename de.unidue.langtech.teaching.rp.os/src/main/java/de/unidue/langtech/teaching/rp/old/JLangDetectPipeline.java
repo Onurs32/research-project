@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package de.unidue.langtech.teaching.rp.pipeline;
+package de.unidue.langtech.teaching.rp.old;
 
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngine;
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription;
@@ -29,10 +29,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.jcas.JCas;
 
-import de.unidue.langtech.teaching.rp.detector.TikaLanguageIdentifier;
+import de.unidue.langtech.teaching.rp.detector.JLangDetect;
 
 public
-class TikaLanguageIdentifierPipeline
+class JLangDetectPipeline
 {
 
 	public static void main(String[] args)
@@ -40,7 +40,8 @@ class TikaLanguageIdentifierPipeline
 	{
         AnalysisEngine engine = createEngine(
                     createEngineDescription(
-                    	TikaLanguageIdentifier.class
+                    		JLangDetect.class,
+                    		JLangDetect.PARAM_LANGUAGES, new String[]{"en", "fr", "es", "de", "nl"}
                          )
                     );
         
