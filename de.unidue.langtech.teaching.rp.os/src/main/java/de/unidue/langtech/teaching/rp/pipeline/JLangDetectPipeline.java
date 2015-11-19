@@ -21,7 +21,7 @@ public class JLangDetectPipeline {
         SimplePipeline.runPipeline(
                 CollectionReaderFactory.createReader(
                         TwitterLIDReader.class,
-                        TwitterLIDReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.trn"
+                        TwitterLIDReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.tst"
                 ),
                 AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
                 AnalysisEngineFactory.createEngineDescription(JLangDetect.class,
