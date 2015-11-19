@@ -13,6 +13,9 @@ import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
 public class JLangDetectPipeline {
 
 	public static void main(String[] args) throws IOException, UIMAException {
+		
+    	System.out.println("Started language detection");
+    	double start = System.currentTimeMillis();
 
 		
         SimplePipeline.runPipeline(
@@ -25,6 +28,10 @@ public class JLangDetectPipeline {
                 		JLangDetect.PARAM_LANGUAGES, new String[]{"en", "fr", "es", "de", "nl"}),
                 AnalysisEngineFactory.createEngineDescription(LanguageEvaluator.class)
                 );
+        
+        double end = System.currentTimeMillis();
+        double time = end - start;
+        System.out.println("Language detection took " + time/1000 + " seconds");
 
 	}
 

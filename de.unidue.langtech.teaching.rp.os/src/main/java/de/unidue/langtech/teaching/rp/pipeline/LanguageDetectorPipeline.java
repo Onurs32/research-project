@@ -69,6 +69,9 @@ public class LanguageDetectorPipeline {
                  )
             );
         
+    	System.out.println("Started language detection");
+    	double start = System.currentTimeMillis();
+        
         SimplePipeline.runPipeline(
                 CollectionReaderFactory.createReader(
                         TwitterLIDReader.class,
@@ -81,6 +84,10 @@ public class LanguageDetectorPipeline {
                 		LanguageExtractor.PARAM_DESIRED_LANGUAGES, new String[] {"de"},
                 		LanguageExtractor.PARAM_OUTPUT_FILE, languageFile)
                 );
+        
+        double end = System.currentTimeMillis();
+        double time = end - start;
+        System.out.println("Language detection took " + time/1000 + " seconds");
 
 	}
 
