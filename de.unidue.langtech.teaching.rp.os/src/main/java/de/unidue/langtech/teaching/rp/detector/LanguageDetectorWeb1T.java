@@ -141,6 +141,7 @@ public class LanguageDetectorWeb1T
 //            if (hasDuplicates(langProbs)) {
             	
             	langProbs = getLanguageProbabilities(ngrams);
+            	int zeroCounter = 0; //counter used to check if all probs are zero
             	
                 double maxLogProb = Double.NEGATIVE_INFINITY;
                 for (String lang : langProbs.keySet()) {
@@ -150,9 +151,16 @@ public class LanguageDetectorWeb1T
                         maxLanguage = lang;
                     }
                     System.out.println(lang + " - " + prob);
+                    if (prob == 0.0) {
+                    	zeroCounter++;
+                    }
                 }
                 
 //            }	
+                
+            if (zeroCounter == langProbs.size()) {
+            	maxLanguage = "x-unspecified";
+            }
             
             jcas.setDocumentLanguage(maxLanguage);
         }
@@ -161,7 +169,8 @@ public class LanguageDetectorWeb1T
         }
     }
     
-    private Map<String,Double> getSingleLanguageProbabilities(List<String> ngrams, boolean multipleMaximums)
+    @SuppressWarnings("unused")
+	private Map<String,Double> getSingleLanguageProbabilities(List<String> ngrams, boolean multipleMaximums)
             throws Exception
     {
     	
@@ -274,7 +283,8 @@ public class LanguageDetectorWeb1T
         return langProbs;
     }
     
-    private String getNgram(String ...strings) {
+    @SuppressWarnings("unused")
+	private String getNgram(String ...strings) {
         return StringUtils.join(strings, " ");
     }
     
@@ -292,7 +302,8 @@ public class LanguageDetectorWeb1T
     }
     
     
-    private boolean hasDuplicates(Map<String, Double> map){
+    @SuppressWarnings("unused")
+	private boolean hasDuplicates(Map<String, Double> map){
     	
     	boolean status = false;
     	
