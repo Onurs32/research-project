@@ -79,10 +79,10 @@ public class LanguageDetectorPipeline {
                 ),
                 AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
                 ldWeb1T,
-                AnalysisEngineFactory.createEngineDescription(LanguageEvaluator.class),
-                AnalysisEngineFactory.createEngineDescription(LanguageExtractor.class,
-                		LanguageExtractor.PARAM_DESIRED_LANGUAGES, new String[] {"de"},
-                		LanguageExtractor.PARAM_OUTPUT_FILE, languageFile)
+                AnalysisEngineFactory.createEngineDescription(LanguageEvaluator.class)//,
+//                AnalysisEngineFactory.createEngineDescription(LanguageExtractor.class,
+//                		LanguageExtractor.PARAM_DESIRED_LANGUAGES, new String[] {"de"},
+//                		LanguageExtractor.PARAM_OUTPUT_FILE, languageFile)
                 );
         
         double end = System.currentTimeMillis();
