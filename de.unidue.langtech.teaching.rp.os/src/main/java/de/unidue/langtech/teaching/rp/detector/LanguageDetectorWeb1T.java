@@ -17,6 +17,7 @@
  ******************************************************************************/
 package de.unidue.langtech.teaching.rp.detector;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -162,11 +163,89 @@ public class LanguageDetectorWeb1T
             	maxLanguage = "x-unspecified";
             }
             
+//            getCertainty(langProbs);
+            
             jcas.setDocumentLanguage(maxLanguage);
         }
         catch (Exception e) {
             throw new AnalysisEngineProcessException(e);
         }
+    }
+    
+
+    
+    private Map<String,Double> getLanguageProbabilities(List<String> ngrams)
+            throws Exception
+    {
+        Map<String,Double> langProbs = new HashMap<String,Double>();
+       
+        for (String lang : providerMap.keySet()) { 
+                                    
+            FrequencyCountProvider provider = providerMap.get(lang);
+            
+            long nrOfUnigrams = provider.getNrOfNgrams(1);
+            long nrOfBigrams  = provider.getNrOfNgrams(2);
+            long nrOfTrigrams = provider.getNrOfNgrams(3);
+            
+            double textLogProbability = 0.0;
+            
+            for (String ngram : ngrams) {
+                
+                long frequency = provider.getFrequency(ngram);
+
+                int ngramSize = FrequencyUtils.getPhraseLength(ngram);
+                                
+                long normalization = 1;
+                int weighting = 1;
+                if (ngramSize == 1) {
+                    normalization = nrOfUnigrams;
+                }
+                else if (ngramSize == 2) {
+                    weighting = 2;
+                    normalization = nrOfBigrams;
+                }
+                else if (ngramSize == 3) {
+                    weighting = 4;
+                    normalization = nrOfTrigrams;
+                }
+    
+                if (frequency > 0) {
+                    double logProb = Math.log( weighting * ((double) frequency) / normalization );
+                    
+                    textLogProbability += logProb;
+                }
+                else {
+                    textLogProbability += Math.log( 1.0 / normalization);
+                }
+                
+            }
+          
+            langProbs.put(lang, textLogProbability);
+        }
+        
+        return langProbs;
+    }
+    
+    private void getCertainty(Map<String,Double> map) {
+    	
+    	double maxProb = Collections.max(map.values());
+    	
+		Map<String,Double> newMap = new HashMap<String, Double>();
+		double sum = 0.0;
+		
+		
+		for (Entry<String, Double> entry : map.entrySet()) {
+		    newMap.put(entry.getKey(), Math.exp(entry.getValue() - maxProb));
+		    sum += Math.exp(entry.getValue() - maxProb);
+		}
+		
+		NumberFormat defaultFormat = NumberFormat.getPercentInstance();
+		defaultFormat.setMinimumFractionDigits(2);
+
+		for (Entry<String, Double> entry : newMap.entrySet()) {
+		    System.out.println("Language: " + entry.getKey() + " Certainty: " + defaultFormat.format(entry.getValue()/sum));
+		}
+    	
     }
     
     @SuppressWarnings("unused")
@@ -229,58 +308,6 @@ public class LanguageDetectorWeb1T
         }
         
         return textLogProbability;
-    }
-    
-    private Map<String,Double> getLanguageProbabilities(List<String> ngrams)
-            throws Exception
-    {
-        Map<String,Double> langProbs = new HashMap<String,Double>();
-       
-        for (String lang : providerMap.keySet()) { 
-                                    
-            FrequencyCountProvider provider = providerMap.get(lang);
-            
-            long nrOfUnigrams = provider.getNrOfNgrams(1);
-            long nrOfBigrams  = provider.getNrOfNgrams(2);
-            long nrOfTrigrams = provider.getNrOfNgrams(3);
-            
-            double textLogProbability = 0.0;
-            
-            for (String ngram : ngrams) {
-                
-                long frequency = provider.getFrequency(ngram);
-
-                int ngramSize = FrequencyUtils.getPhraseLength(ngram);
-                                
-                long normalization = 1;
-                int weighting = 1;
-                if (ngramSize == 1) {
-                    normalization = nrOfUnigrams;
-                }
-                else if (ngramSize == 2) {
-                    weighting = 2;
-                    normalization = nrOfBigrams;
-                }
-                else if (ngramSize == 3) {
-                    weighting = 4;
-                    normalization = nrOfTrigrams;
-                }
-    
-                if (frequency > 0) {
-                    double logProb = Math.log( weighting * ((double) frequency) / normalization );
-                    
-                    textLogProbability += logProb;
-                }
-                else {
-                    textLogProbability += Math.log( 1.0 / normalization);
-                }
-                
-            }
-          
-            langProbs.put(lang, textLogProbability);
-        }
-        
-        return langProbs;
     }
     
     @SuppressWarnings("unused")
