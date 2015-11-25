@@ -226,7 +226,8 @@ public class LanguageDetectorWeb1T
         return langProbs;
     }
     
-    private void getCertainty(Map<String,Double> map) {
+    @SuppressWarnings("unused")
+	private void getCertainty(Map<String,Double> map) {
     	
     	double maxProb = Collections.max(map.values());
     	
