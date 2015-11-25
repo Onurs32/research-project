@@ -39,7 +39,7 @@ public class Web1TConverter
     {
         CollectionReader reader = createReader(
                 TextReader.class,
-                TextReader.PARAM_SOURCE_LOCATION, "D:/_Projekt_Listen/Leipzig/basque/eus_wikipedia_2012_300K-sentences.txt"
+                TextReader.PARAM_SOURCE_LOCATION, "D:/_Test/Web1T/Euro/de/vocab"
         );
 
         AnalysisEngineDescription segmenter = createEngineDescription(
@@ -48,11 +48,11 @@ public class Web1TConverter
 
         AnalysisEngineDescription ngramWriter = createEngineDescription(
                 Web1TFormatWriter.class,
-                Web1TFormatWriter.PARAM_TARGET_LOCATION, "D:/_Projekt_Listen/Leipzig/basque/eus_wikipedia_2012_300K-sentences",
+                Web1TFormatWriter.PARAM_TARGET_LOCATION, "D:/_Test/Web1T/Euro/de/",
                 Web1TFormatWriter.PARAM_INPUT_TYPES, new String[] { Token.class.getName() },
                 Web1TFormatWriter.PARAM_MIN_NGRAM_LENGTH, 1,
-                Web1TFormatWriter.PARAM_MAX_NGRAM_LENGTH, 3,
-                Web1TFormatWriter.PARAM_MIN_FREQUENCY, 2
+                Web1TFormatWriter.PARAM_MAX_NGRAM_LENGTH, 1,
+                Web1TFormatWriter.PARAM_MIN_FREQUENCY, 100
         );
 
         SimplePipeline.runPipeline(
@@ -61,7 +61,7 @@ public class Web1TConverter
                 ngramWriter
         );
 
-        JWeb1TIndexer indexCreator = new JWeb1TIndexer("D:/_Projekt_Listen/Leipzig/basque/eus_wikipedia_2012_300K-sentences", 3);
+        JWeb1TIndexer indexCreator = new JWeb1TIndexer("D:/_Test/Web1T/Euro/de/", 1);
         indexCreator.create();
     }
 }
