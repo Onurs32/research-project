@@ -36,7 +36,6 @@ import com.googlecode.jweb1t.JWeb1TIndexer;
 import de.tudarmstadt.ukp.dkpro.core.api.resources.DkproContext;
 import de.tudarmstadt.ukp.dkpro.core.frequency.resources.Web1TFrequencyCountResource;
 import de.tudarmstadt.ukp.dkpro.core.tokit.BreakIteratorSegmenter;
-import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1TOld;
 
 public class LanguageDetectorPipeline2
 {
