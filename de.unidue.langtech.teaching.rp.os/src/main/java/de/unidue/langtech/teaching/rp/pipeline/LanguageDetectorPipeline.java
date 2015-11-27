@@ -3,7 +3,6 @@ package de.unidue.langtech.teaching.rp.pipeline;
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription;
 import static org.apache.uima.fit.factory.ExternalResourceFactory.createExternalResourceDescription;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -18,14 +17,13 @@ import de.tudarmstadt.ukp.dkpro.core.frequency.resources.Web1TFrequencyCountReso
 import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1T;
 import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluator;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
-import de.unidue.langtech.teaching.rp.tools.LanguageExtractor;
 
 public class LanguageDetectorPipeline {
 
 	public static void main(String[] args) throws IOException, UIMAException {
 
 		String web1TBaseDir = new DkproContext().getWorkspace("Web1T").getAbsolutePath();
-		File languageFile = new File("src/main/resources/" + "desiredLanguages.txt");
+//		File languageFile = new File("src/main/resources/" + "desiredLanguages.txt");
 		
         AnalysisEngineDescription ldWeb1T = createEngineDescription(
             	LanguageDetectorWeb1T.class,

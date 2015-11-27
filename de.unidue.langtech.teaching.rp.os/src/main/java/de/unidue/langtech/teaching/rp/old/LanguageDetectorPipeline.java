@@ -37,7 +37,7 @@ import de.tudarmstadt.ukp.dkpro.core.api.resources.DkproContext;
 import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
 import de.tudarmstadt.ukp.dkpro.core.frequency.resources.Web1TFrequencyCountResource;
 import de.tudarmstadt.ukp.dkpro.core.tokit.BreakIteratorSegmenter;
-import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1T;
+import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1TOld;
 
 public class LanguageDetectorPipeline
 {
@@ -60,8 +60,8 @@ public class LanguageDetectorPipeline
                         ArktweetTokenizer.class
                 ),
                 createEngineDescription(
-                	LanguageDetectorWeb1T.class,
-                	LanguageDetectorWeb1T.PARAM_FREQUENCY_PROVIDER_RESOURCES, 
+                	LanguageDetectorWeb1TOld.class,
+                	LanguageDetectorWeb1TOld.PARAM_FREQUENCY_PROVIDER_RESOURCES, 
                     Arrays.asList(
                             createExternalResourceDescription(
                                     Web1TFrequencyCountResource.class,

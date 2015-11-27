@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import org.apache.commons.collections.map.MultiKeyMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -35,6 +36,7 @@ import org.apache.uima.fit.descriptor.ExternalResource;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
+
 
 import de.tudarmstadt.ukp.dkpro.core.api.frequency.provider.FrequencyCountProvider;
 import de.tudarmstadt.ukp.dkpro.core.api.frequency.util.FrequencyUtils;
@@ -74,6 +76,9 @@ public class LanguageDetectorWeb1T
 
     private Map<String,FrequencyCountProvider> providerMap;
     
+    
+    private MultiKeyMap multiKeyMap;
+    
     @Override
     public void initialize(UimaContext context)
         throws ResourceInitializationException
@@ -81,6 +86,7 @@ public class LanguageDetectorWeb1T
         super.initialize(context);
         
         providerMap = new HashMap<String,FrequencyCountProvider>();
+        multiKeyMap = new MultiKeyMap();
         
         for (FrequencyCountProvider provider : frequencyProviders) {
             try {
@@ -190,8 +196,17 @@ public class LanguageDetectorWeb1T
             double textLogProbability = 0.0;
             
             for (String ngram : ngrams) {
-                
-                long frequency = provider.getFrequency(ngram);
+            	
+            	long frequency;
+            	
+            	
+            	if (multiKeyMap.containsKey(lang, ngram)) {
+            		frequency = (Long) multiKeyMap.get(lang, ngram);
+            	} else {
+            		frequency = provider.getFrequency(ngram);
+            		multiKeyMap.put(lang, ngram, frequency);
+            	}
+            	
 
                 int ngramSize = FrequencyUtils.getPhraseLength(ngram);
                                 
