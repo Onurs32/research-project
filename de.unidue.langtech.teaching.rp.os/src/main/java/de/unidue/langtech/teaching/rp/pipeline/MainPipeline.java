@@ -22,8 +22,8 @@ import de.unidue.langtech.teaching.rp.detector.JLangDetect;
 import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1T;
 import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
 import de.unidue.langtech.teaching.rp.detector.OptimaizeLangDetect;
-import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorFinal;
-import de.unidue.langtech.teaching.rp.reader.LIGAReader;
+import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorPrecisionRecall;
+import de.unidue.langtech.teaching.rp.evaluator.Writer;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
 
 public class MainPipeline {
@@ -127,9 +127,10 @@ public class MainPipeline {
                 		corpus.readerDescription,
 						AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
 						desc,
-						AnalysisEngineFactory.createEngineDescription(LanguageEvaluatorFinal.class,
-								LanguageEvaluatorFinal.PARAM_LANGUAGES, twitterlidLanguages,
-								LanguageEvaluatorFinal.PARAM_OUTPUT_FILE, outFile));
+						AnalysisEngineFactory.createEngineDescription(LanguageEvaluatorPrecisionRecall.class,
+								LanguageEvaluatorPrecisionRecall.PARAM_LANGUAGES, twitterlidLanguages),
+						AnalysisEngineFactory.createEngineDescription(Writer.class,
+								Writer.PARAM_OUTPUT_FILE, outFile));
         		
         	}
         	
