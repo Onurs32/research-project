@@ -10,15 +10,11 @@ import org.apache.commons.io.FileUtils;
 
 import dnl.utils.text.table.TextTable;
 
-/**
- * Implements the ResultStore and its methods.
- * @author Onur
- *
- */
+
 public class ResultStore {
 	
 
-	public void saveResults(List<File> toolFiles, String corpusName) throws IOException {
+	public static void saveResults(List<File> toolFiles, String corpusName) throws IOException {
 		
 		
 	List <String> temp = FileUtils.readLines(toolFiles.get(0));
@@ -46,31 +42,97 @@ public class ResultStore {
            }
            
        	
-       	String taggerName = toolFiles.get(i).getName().replace(corpusName, "").replace(".txt", "");
+       	String toolName = toolFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_results", "");
            
            columnNames[0] = "Text";
            columnNames[1] = "GoldLang";
-           columnNames[i+2] = taggerName;  
+           columnNames[i+2] = toolName;  
            
            //fill arrays with information         
-           for(int posRow=0;posRow < tweets.size(); posRow++){
+           for(int row=0;row < tweets.size(); row++){
         	   
-               for (int posCol=0; posCol < toolFiles.size()+1; posCol++){
-               information[posRow][0] = tweets.get(posRow);
-               information[posRow][1] = goldLang.get(posRow);
-               information[posRow][i+2] = detectLang.get(posRow);
+               for (int col=0; col < toolFiles.size()+1; col++){
+            	   
+               information[row][0] = tweets.get(row);
+               information[row][1] = goldLang.get(row);
+               information[row][i+2] = detectLang.get(row);
+               
                }
            }
-   		}    
+   		} 
+   	
+   		for (File f : toolFiles) {
+   			f.delete();
+   		}
    	
    			corpusName = corpusName.replace("-", "");
    	
-   			File file = new File("D:/_Projekt_Korpora/" + corpusName + ".txt");
+   			File file = new File("D:/_Projekt_Korpora/" + corpusName + "_results.txt");
    			PrintStream ps = new PrintStream(file);
    	
    			TextTable tt = new TextTable(columnNames, information); 
    			tt.setAddRowNumbering(true);
    			tt.printTable(ps, 0);
+   	
+
+	}
+	
+	public static void saveScores(List<File> scoreFiles, String corpusName) throws IOException {
+		
+		
+	List <String> temp = FileUtils.readLines(scoreFiles.get(0));
+	int rowLength = temp.size();
+		
+
+   	String[] columnNames = new String[scoreFiles.size()+1];
+   	String [][] information = new String[rowLength][scoreFiles.size()+1]; 
+
+   	for (int i = 0; i < scoreFiles.size(); i++) {
+		
+   		   List <String> toolInformation = FileUtils.readLines(scoreFiles.get(i));
+           
+           List<String> languages = new ArrayList<String>();
+           List<String> scores = new ArrayList<String>();
+           
+           for (String toolInfo : toolInformation) {
+        	   
+        	   String[] parts = toolInfo.split("\t");
+        	   languages.add(parts[0]);
+        	   scores.add(parts[1]);
+        	   
+           }
+           
+       	
+       	String toolName = scoreFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_scores", "");;
+           
+           columnNames[0] = "Language";
+           columnNames[i+1] = toolName;  
+           
+           //fill arrays with information         
+           for(int row=0;row < languages.size(); row++){
+        	   
+               for (int posCol=0; posCol < scoreFiles.size()+1; posCol++){
+            	   
+               information[row][0] = languages.get(row);
+               information[row][i+1] = scores.get(row);
+               
+               }
+           }
+   		}    
+   	
+			for (File f : scoreFiles) {
+				f.delete();
+				}
+   	
+   			corpusName = corpusName.replace("-", "");
+   	
+   			File file = new File("D:/_Projekt_Korpora/" + corpusName + "_scores.txt");
+   			PrintStream ps = new PrintStream(file);
+   	
+   			TextTable tt = new TextTable(columnNames, information); 
+   			tt.printTable(ps, 0);
+   			
+   			FileUtils.writeStringToFile(file, "\n\n\nSCORES FOR ALL LANGUAGES AND TOOLS \nSCORE FORMAT:<ACCURACY>_<PRECISION>_<RECALL>", true);
    	
 
 	}

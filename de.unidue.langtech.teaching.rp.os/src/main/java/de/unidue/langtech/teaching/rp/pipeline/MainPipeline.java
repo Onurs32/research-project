@@ -23,6 +23,7 @@ import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1T;
 import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
 import de.unidue.langtech.teaching.rp.detector.OptimaizeLangDetect;
 import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorPrecisionRecall;
+import de.unidue.langtech.teaching.rp.reader.LIGAReader;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
 import de.unidue.langtech.teaching.rp.tools.ResultStore;
 import de.unidue.langtech.teaching.rp.tools.Writer;
@@ -41,28 +42,25 @@ public class MainPipeline {
                 TwitterLIDReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.trn"
         );
     	
-//    	//LIGA Corpus
-//    	CollectionReaderDescription ligaCorpus = CollectionReaderFactory.createReaderDescription(
-//    			LIGAReader.class,
-//    			LIGAReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 2 - LIGA/corpus_LIGA.txt"
-//        );
+    	//LIGA Corpus
+    	@SuppressWarnings("unused")
+		CollectionReaderDescription ligaCorpus = CollectionReaderFactory.createReaderDescription(
+    			LIGAReader.class,
+    			LIGAReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 2 - LIGA/corpus_LIGA.txt"
+        );
     	
-        CorpusConfiguration[] corpusConfigurations = new CorpusConfiguration[] {
+        CorpusConfiguration corpus = new CorpusConfiguration(twitterCorpus, "TwitterLID");
                 
-                new CorpusConfiguration(twitterCorpus, "TwitterLID")//,
-//                new CorpusConfiguration(ligaCorpus, "LIGA")
-                
-                  };
         
-        String [] twitterlidLanguages = new String[] {"de", "en", "fr", "nl", "es"};
-//      String [] ligaLanguages = new String[] {"de", "en", "fr", "nl", "es", "it"};
+        String[] languages = new String[] {"de", "en", "fr", "nl", "es"};
         
-        List<File> files = new ArrayList<File>();
+        List<File> resultFiles = new ArrayList<File>();
+        List<File> scoreFiles = new ArrayList<File>();
         
         List<AnalysisEngineDescription> description = new ArrayList<AnalysisEngineDescription>();
         
         description.add(AnalysisEngineFactory.createEngineDescription(JLangDetect.class,
-        		JLangDetect.PARAM_LANGUAGES, twitterlidLanguages));
+        		JLangDetect.PARAM_LANGUAGES, languages));
         
         description.add(createEngineDescription(
             	LanguageDetectorWeb1T.class,
@@ -110,13 +108,10 @@ public class MainPipeline {
                 		LanguageIdentifier.PARAM_CONFIG_FILE, "src/main/resources/textcat_tweetlid.conf"));
         
         description.add(createEngineDescription(OptimaizeLangDetect.class,
-                		OptimaizeLangDetect.PARAM_LANGUAGES, twitterlidLanguages));
+                		OptimaizeLangDetect.PARAM_LANGUAGES, languages));
         
 
-        
-        for (CorpusConfiguration corpus : corpusConfigurations) {
-        	
-        	
+       
         	for (AnalysisEngineDescription desc : description) {
         		
         		String descName = desc.getImplementationName();
@@ -124,6 +119,7 @@ public class MainPipeline {
         		String detectorName = descName.substring(descName.lastIndexOf(".") + 1);
         		
         		File resultFile = new File("D:/_Projekt_Korpora/" + corpus.getCorpusName() + "-" + detectorName + ".txt");
+        		File scoreFile = new File("D:/_Projekt_Korpora/" + corpus.getCorpusName() + "-" + detectorName + "_scores.txt");
         		
         		
                 SimplePipeline.runPipeline(
@@ -131,23 +127,22 @@ public class MainPipeline {
 						AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
 						desc,
 						AnalysisEngineFactory.createEngineDescription(LanguageEvaluatorPrecisionRecall.class,
-								LanguageEvaluatorPrecisionRecall.PARAM_LANGUAGES, twitterlidLanguages),
+								LanguageEvaluatorPrecisionRecall.PARAM_LANGUAGES, languages,
+								LanguageEvaluatorPrecisionRecall.PARAM_SCORE_FILE, scoreFile),
 						AnalysisEngineFactory.createEngineDescription(Writer.class,
 								Writer.PARAM_RESULT_FILE, resultFile));
                 
-                files.add(resultFile);
+                resultFiles.add(resultFile);
+                scoreFiles.add(scoreFile);
         		
         	}
         	
-        	ResultStore rs = new ResultStore();
-        	rs.saveResults(files, corpus.getCorpusName() + "-");
+        	ResultStore.saveResults(resultFiles, corpus.getCorpusName() + "-");
+        	ResultStore.saveScores(scoreFiles, corpus.getCorpusName() + "-");
         	
         }
-	
 
-	}
-	
-	
+
 	
     public static class CorpusConfiguration
     {

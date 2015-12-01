@@ -1,9 +1,13 @@
 package de.unidue.langtech.teaching.rp.evaluator;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
@@ -32,6 +36,10 @@ public class LanguageEvaluatorPrecisionRecall
     public static final String PARAM_LANGUAGES = "languages";
     @ConfigurationParameter(name = PARAM_LANGUAGES, mandatory = false)
     private static String[] languages;
+    
+	public static final String PARAM_SCORE_FILE = "ScoreFile";
+    @ConfigurationParameter(name = PARAM_SCORE_FILE, mandatory = true)
+    private File scoreFile;
 
 
 
@@ -139,8 +147,19 @@ public class LanguageEvaluatorPrecisionRecall
     		double accuracy = (tp + tn) / (tp + tn + fp + fn);
     		double precision = tp / (tp + fp);
     		double recall = tp / (tp + fn);
+    		
+    		String accuracyFormatted = defaultFormat.format(accuracy);
+    		String precisionFormatted = defaultFormat.format(precision);
+    		String recallFormatted = defaultFormat.format(recall);
        
-        	System.out.println("Scores for language: " + languages[i] + "\nAccuracy: " + accuracy + "\nPrecision: " + precision + "\nRecall: " + recall + "\n");
+        	System.out.println("Scores for language: " + languages[i] + "\nAccuracy: " + 
+        						accuracyFormatted + "\nPrecision: " + precisionFormatted + "\nRecall: " + recallFormatted + "\n");
+        	
+            try {
+    			FileUtils.writeStringToFile(scoreFile, languages[i] + "\t" + accuracyFormatted + "_" + precisionFormatted + "_" + recallFormatted + "\n", true);
+    		} catch (IOException e) {
+    			throw new AnalysisEngineProcessException(e);
+    		}
         	
 		}
 		
