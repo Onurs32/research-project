@@ -24,7 +24,8 @@ public class TikaPipeline {
                         TwitterLIDReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.tst"
                 ),
                 AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
-                AnalysisEngineFactory.createEngineDescription(TikaLanguageIdentifier.class),
+                AnalysisEngineFactory.createEngineDescription(TikaLanguageIdentifier.class,
+                		TikaLanguageIdentifier.PARAM_LANGUAGES, new String[] {"de", "en", "fr", "nl", "es"}),
                 AnalysisEngineFactory.createEngineDescription(LanguageEvaluator.class)
                 );
         
