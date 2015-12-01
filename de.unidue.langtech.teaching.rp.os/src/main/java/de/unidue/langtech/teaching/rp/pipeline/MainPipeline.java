@@ -23,9 +23,9 @@ import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1T;
 import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
 import de.unidue.langtech.teaching.rp.detector.OptimaizeLangDetect;
 import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorPrecisionRecall;
-import de.unidue.langtech.teaching.rp.evaluator.Writer;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
 import de.unidue.langtech.teaching.rp.tools.ResultStore;
+import de.unidue.langtech.teaching.rp.tools.Writer;
 
 public class MainPipeline {
 
