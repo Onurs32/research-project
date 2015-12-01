@@ -25,6 +25,7 @@ import de.unidue.langtech.teaching.rp.detector.OptimaizeLangDetect;
 import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorPrecisionRecall;
 import de.unidue.langtech.teaching.rp.evaluator.Writer;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
+import de.unidue.langtech.teaching.rp.tools.ResultStore;
 
 public class MainPipeline {
 
@@ -54,7 +55,9 @@ public class MainPipeline {
                   };
         
         String [] twitterlidLanguages = new String[] {"de", "en", "fr", "nl", "es"};
-//        String [] ligaLanguages = new String[] {"de", "en", "fr", "nl", "es", "it"};
+//      String [] ligaLanguages = new String[] {"de", "en", "fr", "nl", "es", "it"};
+        
+        List<File> files = new ArrayList<File>();
         
         List<AnalysisEngineDescription> description = new ArrayList<AnalysisEngineDescription>();
         
@@ -131,8 +134,13 @@ public class MainPipeline {
 								LanguageEvaluatorPrecisionRecall.PARAM_LANGUAGES, twitterlidLanguages),
 						AnalysisEngineFactory.createEngineDescription(Writer.class,
 								Writer.PARAM_OUTPUT_FILE, outFile));
+                
+                files.add(outFile);
         		
         	}
+        	
+        	ResultStore rs = new ResultStore();
+        	rs.saveResults(files, corpus.getCorpusName() + "-");
         	
         }
 	
