@@ -14,9 +14,9 @@ import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
 
 public class Writer extends JCasAnnotator_ImplBase{
 	
-	public static final String PARAM_OUTPUT_FILE = "OutputFile";
-    @ConfigurationParameter(name = PARAM_OUTPUT_FILE, mandatory = true)
-    private File outFile;
+	public static final String PARAM_RESULT_FILE = "ResultFile";
+    @ConfigurationParameter(name = PARAM_RESULT_FILE, mandatory = true)
+    private File resultFile;
 	@Override
 	
 	
@@ -32,7 +32,7 @@ public class Writer extends JCasAnnotator_ImplBase{
         
 
         try {
-			FileUtils.writeStringToFile(outFile, information + "\n", true);
+			FileUtils.writeStringToFile(resultFile, information + "\n", true);
 		} catch (IOException e) {
 			throw new AnalysisEngineProcessException(e);
 		}

@@ -123,7 +123,7 @@ public class MainPipeline {
         		
         		String detectorName = descName.substring(descName.lastIndexOf(".") + 1);
         		
-        		File outFile = new File("D:/_Projekt_Korpora/" + corpus.getCorpusName() + "-" + detectorName + ".txt");
+        		File resultFile = new File("D:/_Projekt_Korpora/" + corpus.getCorpusName() + "-" + detectorName + ".txt");
         		
         		
                 SimplePipeline.runPipeline(
@@ -133,9 +133,9 @@ public class MainPipeline {
 						AnalysisEngineFactory.createEngineDescription(LanguageEvaluatorPrecisionRecall.class,
 								LanguageEvaluatorPrecisionRecall.PARAM_LANGUAGES, twitterlidLanguages),
 						AnalysisEngineFactory.createEngineDescription(Writer.class,
-								Writer.PARAM_OUTPUT_FILE, outFile));
+								Writer.PARAM_RESULT_FILE, resultFile));
                 
-                files.add(outFile);
+                files.add(resultFile);
         		
         	}
         	
