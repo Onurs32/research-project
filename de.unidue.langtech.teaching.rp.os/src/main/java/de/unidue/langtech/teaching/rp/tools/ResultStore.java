@@ -62,7 +62,9 @@ public class ResultStore {
    		} 
    	
    		for (File f : toolFiles) {
+   			
    			f.delete();
+   			
    		}
    	
    			corpusName = corpusName.replace("-", "");
@@ -121,7 +123,9 @@ public class ResultStore {
    		}    
    	
 			for (File f : scoreFiles) {
+				
 				f.delete();
+				
 				}
    	
    			corpusName = corpusName.replace("-", "");
