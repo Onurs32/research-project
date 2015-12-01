@@ -17,7 +17,7 @@ public class Writer extends JCasAnnotator_ImplBase{
 	public static final String PARAM_RESULT_FILE = "ResultFile";
     @ConfigurationParameter(name = PARAM_RESULT_FILE, mandatory = true)
     private File resultFile;
-	@Override
+
 	
 	
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
