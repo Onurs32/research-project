@@ -155,7 +155,6 @@ public class LanguageEvaluatorPrecisionRecall
         	System.out.println("Scores for language: " + languages[i] + "\nAccuracy: " + 
         						accuracyFormatted + "\nPrecision: " + precisionFormatted + "\nRecall: " + recallFormatted + "\n");
         	
-        	if (!(scoreFile.exists())) {
         		
                 try {
         			FileUtils.writeStringToFile(scoreFile, languages[i] + "\t" + accuracyFormatted + "_" + precisionFormatted + "_" + recallFormatted + "\n", true);
@@ -163,7 +162,6 @@ public class LanguageEvaluatorPrecisionRecall
         			throw new AnalysisEngineProcessException(e);
         		}
                 
-        	}
         	
 		}
 		

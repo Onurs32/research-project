@@ -29,7 +29,7 @@ public class JLangDetectPipeline {
                 		JLangDetect.PARAM_LANGUAGES, new String[]{"en", "fr", "es", "de", "nl"}),
                 AnalysisEngineFactory.createEngineDescription(LanguageEvaluatorConfMatrix.class,
                 		LanguageEvaluatorConfMatrix.PARAM_LANGUAGES, new String[]{"en", "fr", "es", "de", "nl"},
-                		LanguageEvaluatorConfMatrix.PARAM_SCORE_FILE, new File("D:/_Projekt_Korpora/test.txt"))
+                		LanguageEvaluatorConfMatrix.PARAM_SCORE_FILE, new File("D:/_Projekt_Korpora/Scores.txt"))
                 );
         
         double end = System.currentTimeMillis();

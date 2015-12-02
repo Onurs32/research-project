@@ -30,7 +30,6 @@ public class Writer extends JCasAnnotator_ImplBase{
         String text = jcas.getDocumentText();
         String information = text + "\t" + actualLanguage + "\t" + detectedLanguage;
         
-        if (!(resultFile.exists())) {
         	
             try {
     			FileUtils.writeStringToFile(resultFile, information + "\n", true);
@@ -38,7 +37,6 @@ public class Writer extends JCasAnnotator_ImplBase{
     			throw new AnalysisEngineProcessException(e);
     		}
             
-        }
 		
 	}
 
