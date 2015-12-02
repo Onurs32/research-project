@@ -62,13 +62,7 @@ public class ResultStore {
            }
    		} 
    	
-   		for (File f : toolFiles) {
-   			
-   			f.delete();
-   			
-   		}
-   		
-   	   	for (int i=0;i<information.length;i++) {
+	   	for (int i=0;i<information.length;i++) {
    	   	    boolean equal = true;
    	   	    for (int j=3;j<information[i].length;j++) {
    	   	        if (!information[i][2].equals(information[i][j]) && information[i][j] != null) {
@@ -81,6 +75,14 @@ public class ResultStore {
    	   	    	information[i][1] = "x";
    	   	    }
    	   	}
+	   	
+   	
+   		for (File f : toolFiles) {
+   			
+   			f.delete();
+   			
+   		}
+   		
    	
    			corpusName = corpusName.replace("-", "");
    	
@@ -89,7 +91,12 @@ public class ResultStore {
    	
    			TextTable tt = new TextTable(columnNames, information); 
    			tt.setAddRowNumbering(true);
-   			tt.printTable(ps, 0);
+   			
+   			if (!(file.exists())) {
+   				
+   				tt.printTable(ps, 0);
+   				
+   			}
    	
 
 	}
@@ -128,7 +135,7 @@ public class ResultStore {
            //fill arrays with information         
            for(int row=0;row < languages.size(); row++){
         	   
-               for (int posCol=0; posCol < scoreFiles.size()+1; posCol++){
+               for (int col=0; col < scoreFiles.size()+1; col++){
             	   
                information[row][0] = languages.get(row);
                information[row][i+1] = scores.get(row);

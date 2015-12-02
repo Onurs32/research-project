@@ -30,12 +30,15 @@ public class Writer extends JCasAnnotator_ImplBase{
         String text = jcas.getDocumentText();
         String information = text + "\t" + actualLanguage + "\t" + detectedLanguage;
         
-
-        try {
-			FileUtils.writeStringToFile(resultFile, information + "\n", true);
-		} catch (IOException e) {
-			throw new AnalysisEngineProcessException(e);
-		}
+        if (!(resultFile.exists())) {
+        	
+            try {
+    			FileUtils.writeStringToFile(resultFile, information + "\n", true);
+    		} catch (IOException e) {
+    			throw new AnalysisEngineProcessException(e);
+    		}
+            
+        }
 		
 	}
 
