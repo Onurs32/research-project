@@ -1,5 +1,6 @@
 package de.unidue.langtech.teaching.rp.pipeline;
 
+import java.io.File;
 import java.io.IOException;
 import org.apache.uima.UIMAException;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
@@ -7,7 +8,7 @@ import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
 import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
 import de.unidue.langtech.teaching.rp.detector.JLangDetect;
-import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluator;
+import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorConfMatrix;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
 
 public class JLangDetectPipeline {
@@ -26,7 +27,9 @@ public class JLangDetectPipeline {
                 AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
                 AnalysisEngineFactory.createEngineDescription(JLangDetect.class,
                 		JLangDetect.PARAM_LANGUAGES, new String[]{"en", "fr", "es", "de", "nl"}),
-                AnalysisEngineFactory.createEngineDescription(LanguageEvaluator.class)
+                AnalysisEngineFactory.createEngineDescription(LanguageEvaluatorConfMatrix.class,
+                		LanguageEvaluatorConfMatrix.PARAM_LANGUAGES, new String[]{"en", "fr", "es", "de", "nl"},
+                		LanguageEvaluatorConfMatrix.PARAM_SCORE_FILE, new File("D:/_Projekt_Korpora/test.txt"))
                 );
         
         double end = System.currentTimeMillis();
