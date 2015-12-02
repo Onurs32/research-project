@@ -21,8 +21,8 @@ public class ResultStore {
 	int rowLength = temp.size();
 		
 
-   	String[] columnNames = new String[toolFiles.size()+2];
-   	String [][] information = new String[rowLength][toolFiles.size()+2]; 
+   	String[] columnNames = new String[toolFiles.size()+3];
+   	String [][] information = new String[rowLength][toolFiles.size()+3]; 
 
    	for (int i = 0; i < toolFiles.size(); i++) {
 		
@@ -45,8 +45,9 @@ public class ResultStore {
        	String toolName = toolFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_results", "");
            
            columnNames[0] = "Text";
-           columnNames[1] = "GoldLang";
-           columnNames[i+2] = toolName;  
+           columnNames[1] = "False?";
+           columnNames[2] = "GoldLang";
+           columnNames[i+3] = toolName;  
            
            //fill arrays with information         
            for(int row=0;row < tweets.size(); row++){
@@ -54,8 +55,8 @@ public class ResultStore {
                for (int col=0; col < toolFiles.size()+1; col++){
             	   
                information[row][0] = tweets.get(row);
-               information[row][1] = goldLang.get(row);
-               information[row][i+2] = detectLang.get(row);
+               information[row][2] = goldLang.get(row);
+               information[row][i+3] = detectLang.get(row);
                
                }
            }
@@ -66,6 +67,20 @@ public class ResultStore {
    			f.delete();
    			
    		}
+   		
+   	   	for (int i=0;i<information.length;i++) {
+   	   	    boolean equal = true;
+   	   	    for (int j=3;j<information[i].length;j++) {
+   	   	        if (!information[i][2].equals(information[i][j]) && information[i][j] != null) {
+   	   	            equal = false;
+   	   	            break;
+   	   	        }
+   	   	    }
+   	   	    
+   	   	    if (!equal) {
+   	   	    	information[i][1] = "x";
+   	   	    }
+   	   	}
    	
    			corpusName = corpusName.replace("-", "");
    	
