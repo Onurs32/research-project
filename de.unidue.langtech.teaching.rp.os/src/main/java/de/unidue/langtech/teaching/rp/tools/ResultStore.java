@@ -92,12 +92,9 @@ public class ResultStore {
    			TextTable tt = new TextTable(columnNames, information); 
    			tt.setAddRowNumbering(true);
    			
-   			if (!(file.exists())) {
    				
    				tt.printTable(ps, 0);
    				
-   			}
-   	
 
 	}
 	
