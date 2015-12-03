@@ -52,7 +52,7 @@ import de.unidue.langtech.teaching.rp.type.TimerAnnotation;
         outputs={
                 "de.tudarmstadt.ukp.dkpro.core.type.TimerAnnotation"})
 
-public class StopWatch
+public class Stopwatch
     extends JCasAnnotator_ImplBase
 {
 	
