@@ -41,7 +41,6 @@ public class TikaLanguageIdentifier extends JCasAnnotator_ImplBase{
 		
 		}
 		
-		LanguageIdentifier.initProfiles(languageMaps);
         
     }
 
@@ -53,6 +52,8 @@ public class TikaLanguageIdentifier extends JCasAnnotator_ImplBase{
 		if (docText != null) {
 			
 			LanguageIdentifier identifier = new LanguageIdentifier(docText);
+			
+			LanguageIdentifier.initProfiles(languageMaps);
 			
 			aJCas.setDocumentLanguage(identifier.getLanguage());
 			
