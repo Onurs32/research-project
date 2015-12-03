@@ -22,6 +22,7 @@ import de.unidue.langtech.teaching.rp.detector.JLangDetect;
 import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1T;
 import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
 import de.unidue.langtech.teaching.rp.detector.OptimaizeLangDetect;
+import de.unidue.langtech.teaching.rp.detector.TikaLanguageIdentifier;
 import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorPrecisionRecall;
 import de.unidue.langtech.teaching.rp.reader.LIGAReader;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
@@ -109,6 +110,8 @@ public class MainPipeline {
         
         description.add(createEngineDescription(OptimaizeLangDetect.class,
                 		OptimaizeLangDetect.PARAM_LANGUAGES, languages));
+        
+        description.add(createEngineDescription(TikaLanguageIdentifier.class));
         
 
        
