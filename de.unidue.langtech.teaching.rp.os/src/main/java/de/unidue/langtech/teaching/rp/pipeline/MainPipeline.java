@@ -106,7 +106,7 @@ public class MainPipeline {
             ));
         
         description.add(createEngineDescription(LanguageIdentifier.class,
-                		LanguageIdentifier.PARAM_CONFIG_FILE, "src/main/resources/textcat_tweetlid.conf"));
+                		LanguageIdentifier.PARAM_CONFIG_FILE, "src/main/resources/textcat_models/textcat_tweetlid.conf"));
         
         description.add(createEngineDescription(OptimaizeLangDetect.class,
                 		OptimaizeLangDetect.PARAM_LANGUAGES, languages));
