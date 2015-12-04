@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package de.unidue.langtech.teaching.rp.detector;
+package de.unidue.langtech.teaching.rp.old;
 
 import static de.tudarmstadt.ukp.dkpro.core.frequency.Web1TProviderBase.BOS;
 

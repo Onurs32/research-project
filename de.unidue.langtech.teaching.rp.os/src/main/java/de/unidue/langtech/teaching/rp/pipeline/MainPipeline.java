@@ -27,6 +27,7 @@ import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorPrecisionRecall
 import de.unidue.langtech.teaching.rp.reader.LIGAReader;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
 import de.unidue.langtech.teaching.rp.tools.ResultStore;
+import de.unidue.langtech.teaching.rp.tools.Stopwatch;
 import de.unidue.langtech.teaching.rp.tools.Writer;
 
 public class MainPipeline {
@@ -50,13 +51,14 @@ public class MainPipeline {
     			LIGAReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 2 - LIGA/corpus_LIGA.txt"
         );
     	
-        CorpusConfiguration corpus = new CorpusConfiguration(twitterCorpus, "TwitterLID");
+        CorpusConfiguration corpus = new CorpusConfiguration(twitterCorpus, "TwitterLID_Training");
                 
         
         String[] languages = new String[] {"de", "en", "fr", "nl", "es"};
         
         List<File> resultFiles = new ArrayList<File>();
         List<File> scoreFiles = new ArrayList<File>();
+        List<File> timeFiles = new ArrayList<File>();
         
         List<AnalysisEngineDescription> description = new ArrayList<AnalysisEngineDescription>();
         
@@ -121,14 +123,20 @@ public class MainPipeline {
         		
         		String detectorName = descName.substring(descName.lastIndexOf(".") + 1);
         		
-        		File resultFile = new File("D:/_Projekt_Korpora/" + corpus.getCorpusName() + "-" + detectorName + ".txt");
-        		File scoreFile = new File("D:/_Projekt_Korpora/" + corpus.getCorpusName() + "-" + detectorName + "_scores.txt");
+        		File resultFile = new File("D:/_Projekt_Korpora/temp_results/" + corpus.getCorpusName() + "-" + detectorName + ".txt");
+        		File scoreFile = new File("D:/_Projekt_Korpora/temp_results/" + corpus.getCorpusName() + "-" + detectorName + "_scores.txt");
+        		File timerFile = new File("D:/_Projekt_Korpora/temp_results/" + corpus.getCorpusName() + "-" + detectorName + "_times.txt");
         		
         		
                 SimplePipeline.runPipeline(
                 		corpus.readerDescription,
 						AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
+						AnalysisEngineFactory.createEngineDescription(Stopwatch.class,
+								Stopwatch.PARAM_TIMER_NAME, "t1"),
 						desc,
+						AnalysisEngineFactory.createEngineDescription(Stopwatch.class,
+								Stopwatch.PARAM_TIMER_NAME, "t1",
+								Stopwatch.PARAM_OUTPUT_FILE, timerFile),
 						AnalysisEngineFactory.createEngineDescription(LanguageEvaluatorPrecisionRecall.class,
 								LanguageEvaluatorPrecisionRecall.PARAM_LANGUAGES, languages,
 								LanguageEvaluatorPrecisionRecall.PARAM_SCORE_FILE, scoreFile),
@@ -137,11 +145,14 @@ public class MainPipeline {
                 
                 resultFiles.add(resultFile);
                 scoreFiles.add(scoreFile);
+                timeFiles.add(timerFile);
         		
         	}
         	
         	ResultStore.saveResults(resultFiles, corpus.getCorpusName() + "-");
-        	ResultStore.saveScores(scoreFiles, corpus.getCorpusName() + "-");
+        	ResultStore.saveScores(scoreFiles, timeFiles, corpus.getCorpusName() + "-");
+        	
+//   		   	FileUtils.cleanDirectory(new File("D:/_Projekt_Korpora/temp_results")); TODO: Doesn't work for last file.
         	
         }
 

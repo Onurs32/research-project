@@ -3,6 +3,7 @@ package de.unidue.langtech.teaching.rp.tools;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,13 +78,6 @@ public class ResultStore {
    	   	}
 	   	
    	
-   		for (File f : toolFiles) {
-   			
-   			f.delete();
-   			
-   		}
-   		
-   	
    			corpusName = corpusName.replace("-", "");
    	
    			File file = new File("D:/_Projekt_Korpora/" + corpusName + "_results.txt");
@@ -93,12 +87,12 @@ public class ResultStore {
    			tt.setAddRowNumbering(true);
    			
    				
-   				tt.printTable(ps, 0);
+   			tt.printTable(ps, 0);
    				
 
 	}
 	
-	public static void saveScores(List<File> scoreFiles, String corpusName) throws IOException {
+	public static void saveScores(List<File> scoreFiles, List<File> timeFiles, String corpusName) throws IOException {
 		
 		
 	List <String> temp = FileUtils.readLines(scoreFiles.get(0));
@@ -124,10 +118,10 @@ public class ResultStore {
            }
            
        	
-       	String toolName = scoreFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_scores", "");;
+       	String toolScoreName = scoreFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_scores", "");;
            
            columnNames[0] = "Language";
-           columnNames[i+1] = toolName;  
+           columnNames[i+1] = toolScoreName;  
            
            //fill arrays with information         
            for(int row=0;row < languages.size(); row++){
@@ -140,22 +134,43 @@ public class ResultStore {
                }
            }
    		}    
+   		
    	
-			for (File f : scoreFiles) {
-				
-				f.delete();
-				
-				}
-   	
-   			corpusName = corpusName.replace("-", "");
-   	
-   			File file = new File("D:/_Projekt_Korpora/" + corpusName + "_scores.txt");
+   			File file = new File("D:/_Projekt_Korpora/" + corpusName.replace("-", "") + "_scores.txt");
    			PrintStream ps = new PrintStream(file);
    	
    			TextTable tt = new TextTable(columnNames, information); 
    			tt.printTable(ps, 0);
    			
-   			FileUtils.writeStringToFile(file, "\n\n\nSCORES FOR ALL LANGUAGES AND TOOLS \nSCORE FORMAT:<ACCURACY>_<PRECISION>_<RECALL>", true);
+	        List<String> times = new ArrayList<String>();
+   			
+   		   	for (int i = 0; i < timeFiles.size(); i++) {
+   		   		
+   	            List<String> timeInformation = FileUtils.readLines(timeFiles.get(i));
+   	        	String toolTimeName = timeFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_times", "");
+   	        	
+   	           for (String timeInfo : timeInformation) {
+   	        	   
+   	        	   if (timeInfo.startsWith("sum")) {
+   	        		   
+   	        		   String[] parts = timeInfo.split("=");
+   	        		   String timeString = parts[1];
+   	        		   double time = Double.parseDouble(timeString);
+   	        		   
+   	        		   DecimalFormat tf = new DecimalFormat("#.##");
+   	        		   times.add(tf.format(time));
+   	        		   
+   	        	   }
+   	        	   
+   	           }
+   	           
+   	           
+   	        FileUtils.writeStringToFile(file, "\nTime for " + toolTimeName + ": " + times.get(i) + " s", true);
+   	              		
+   		   	}
+   		   	  	
+   			FileUtils.writeStringToFile(file, "\n\n\nSCORES FOR ALL LANGUAGES AND TOOLS \nSCORE FORMAT:<ACCURACY>TAB<PRECISION>TAB<RECALL>", true);
+   			
    	
 
 	}

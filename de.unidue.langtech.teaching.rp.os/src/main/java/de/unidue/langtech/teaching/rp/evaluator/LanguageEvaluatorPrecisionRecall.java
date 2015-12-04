@@ -157,7 +157,7 @@ public class LanguageEvaluatorPrecisionRecall
         	
         		
                 try {
-        			FileUtils.writeStringToFile(scoreFile, languages[i] + "\t" + accuracyFormatted + "_" + precisionFormatted + "_" + recallFormatted + "\n", true);
+        			FileUtils.writeStringToFile(scoreFile, languages[i] + "\t" + accuracyFormatted + "___" + precisionFormatted + "___" + recallFormatted + "\n", true);
         		} catch (IOException e) {
         			throw new AnalysisEngineProcessException(e);
         		}

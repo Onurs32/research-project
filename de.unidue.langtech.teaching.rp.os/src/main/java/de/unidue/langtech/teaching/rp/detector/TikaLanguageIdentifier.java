@@ -19,8 +19,6 @@ public class TikaLanguageIdentifier extends JCasAnnotator_ImplBase{
 
 			aJCas.setDocumentLanguage(identifier.getLanguage());
 			
-			System.out.println(LanguageIdentifier.getSupportedLanguages());
-			
 		}
 		
 	}
