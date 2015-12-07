@@ -7,7 +7,7 @@ import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.pipeline.SimplePipeline;
 import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
 import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
-import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluator;
+import de.unidue.langtech.teaching.rp.old.LanguageEvaluator;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
 
 public class LanguageIdentifierPipeline {

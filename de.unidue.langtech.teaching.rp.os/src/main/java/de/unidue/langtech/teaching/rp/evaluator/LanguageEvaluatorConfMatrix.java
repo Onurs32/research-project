@@ -186,7 +186,7 @@ public class LanguageEvaluatorConfMatrix
         	
 		}
 		
-    	printConfMatrix(confMatrix);
+//    	printConfMatrix(confMatrix);
 		
     }
     

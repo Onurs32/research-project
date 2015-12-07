@@ -10,6 +10,8 @@ import com.optimaize.langdetect.profiles.OldLangProfileConverter;
 import be.frma.langguess.LangProfileReader;
 
 import com.optimaize.langdetect.profiles.LanguageProfile;
+import com.optimaize.langdetect.profiles.LanguageProfileReader;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -61,10 +63,9 @@ public class OptimaizeLangDetect extends JCasAnnotator_ImplBase {
 //        builder.prefixFactor(1.5);
 //        builder.suffixFactor(2.0);
 
-        LangProfileReader langProfileReader = new LangProfileReader();
+        LanguageProfileReader langProfileReader = new LanguageProfileReader();
         for (String language : languages) {
-        	LangProfile langProfile = langProfileReader.read(OptimaizeLangDetect.class.getResourceAsStream("/languages/" + language));
-            LanguageProfile languageProfile = OldLangProfileConverter.convert(langProfile);
+            LanguageProfile languageProfile = langProfileReader.read(OptimaizeLangDetect.class.getResourceAsStream("/languages/" + language));
             builder.withProfile(languageProfile);
         }
 

@@ -15,7 +15,7 @@ import de.tudarmstadt.ukp.dkpro.core.api.resources.DkproContext;
 import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
 import de.tudarmstadt.ukp.dkpro.core.frequency.resources.Web1TFrequencyCountResource;
 import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1T;
-import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluator;
+import de.unidue.langtech.teaching.rp.old.LanguageEvaluator;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
 
 public class LanguageDetectorPipeline {

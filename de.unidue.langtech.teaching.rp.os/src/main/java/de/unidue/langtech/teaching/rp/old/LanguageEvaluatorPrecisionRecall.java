@@ -1,4 +1,4 @@
-package de.unidue.langtech.teaching.rp.evaluator;
+package de.unidue.langtech.teaching.rp.old;
 
 import java.io.File;
 import java.io.IOException;
