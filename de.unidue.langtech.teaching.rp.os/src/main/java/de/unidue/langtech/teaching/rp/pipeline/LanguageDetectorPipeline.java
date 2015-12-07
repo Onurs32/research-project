@@ -3,6 +3,7 @@ package de.unidue.langtech.teaching.rp.pipeline;
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription;
 import static org.apache.uima.fit.factory.ExternalResourceFactory.createExternalResourceDescription;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -15,7 +16,7 @@ import de.tudarmstadt.ukp.dkpro.core.api.resources.DkproContext;
 import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
 import de.tudarmstadt.ukp.dkpro.core.frequency.resources.Web1TFrequencyCountResource;
 import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1T;
-import de.unidue.langtech.teaching.rp.old.LanguageEvaluator;
+import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorConfMatrix;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
 
 public class LanguageDetectorPipeline {
@@ -77,10 +78,9 @@ public class LanguageDetectorPipeline {
                 ),
                 AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
                 ldWeb1T,
-                AnalysisEngineFactory.createEngineDescription(LanguageEvaluator.class)//,
-//                AnalysisEngineFactory.createEngineDescription(LanguageExtractor.class,
-//                		LanguageExtractor.PARAM_DESIRED_LANGUAGES, new String[] {"de"},
-//                		LanguageExtractor.PARAM_OUTPUT_FILE, languageFile)
+                AnalysisEngineFactory.createEngineDescription(LanguageEvaluatorConfMatrix.class,
+                		LanguageEvaluatorConfMatrix.PARAM_LANGUAGES, new String[] {"de", "en", "fr", "nl", "es"},
+                		LanguageEvaluatorConfMatrix.PARAM_SCORE_FILE, new File("D:/_Projekt_Korpora/Score.txt"))
                 );
         
         double end = System.currentTimeMillis();

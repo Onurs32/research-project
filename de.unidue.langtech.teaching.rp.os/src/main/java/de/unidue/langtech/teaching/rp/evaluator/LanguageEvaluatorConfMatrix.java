@@ -42,7 +42,7 @@ public class LanguageEvaluatorConfMatrix
     @ConfigurationParameter(name = PARAM_LANGUAGES, mandatory = false)
     private static String[] languages;
     
-	public static final String PARAM_SCORE_FILE = "ScoreFile";
+	public static final String PARAM_SCORE_FILE = "scoreFile";
     @ConfigurationParameter(name = PARAM_SCORE_FILE, mandatory = true)
     private File scoreFile;
 
@@ -186,7 +186,7 @@ public class LanguageEvaluatorConfMatrix
         	
 		}
 		
-//    	printConfMatrix(confMatrix);
+    	printConfMatrix(confMatrix);
 		
     }
     
