@@ -1,14 +1,9 @@
 package de.unidue.langtech.teaching.rp.detector;
 
-import com.cybozu.labs.langdetect.util.LangProfile;
 import com.optimaize.langdetect.DetectedLanguage;
 import com.optimaize.langdetect.LanguageDetector;
 import com.optimaize.langdetect.LanguageDetectorBuilder;
 import com.optimaize.langdetect.ngram.NgramExtractors;
-import com.optimaize.langdetect.profiles.OldLangProfileConverter;
-
-import be.frma.langguess.LangProfileReader;
-
 import com.optimaize.langdetect.profiles.LanguageProfile;
 import com.optimaize.langdetect.profiles.LanguageProfileReader;
 
@@ -25,7 +20,6 @@ import org.apache.uima.jcas.JCas;
  *
  *
  */
-@SuppressWarnings("deprecation")
 public class OptimaizeLangDetect extends JCasAnnotator_ImplBase {
 	
     /**
