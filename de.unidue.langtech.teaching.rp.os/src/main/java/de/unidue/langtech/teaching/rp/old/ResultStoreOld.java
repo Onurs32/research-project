@@ -1,4 +1,4 @@
-package de.unidue.langtech.teaching.rp.tools;
+package de.unidue.langtech.teaching.rp.old;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import org.apache.commons.io.FileUtils;
 import dnl.utils.text.table.TextTable;
 
 
-public class ResultStore {
+public class ResultStoreOld {
 	
 
 	public static void saveResults(List<File> toolFiles, String corpusName) throws IOException {
@@ -100,7 +100,7 @@ public class ResultStore {
 		
 
    	String[] columnNames = new String[scoreFiles.size()+1];
-   	String [][] information = new String[rowLength+1][scoreFiles.size()+1]; 
+   	String [][] information = new String[rowLength][scoreFiles.size()+1]; 
 
    	for (int i = 0; i < scoreFiles.size(); i++) {
 		
@@ -108,11 +108,6 @@ public class ResultStore {
            
            List<String> languages = new ArrayList<String>();
            List<String> scores = new ArrayList<String>();
-           
-           //dump line for notation
-           
-           languages.add("");
-           scores.add("ACCURACY__PRECISION__RECALL");
            
            for (String toolInfo : toolInformation) {
         	   
@@ -130,10 +125,13 @@ public class ResultStore {
            
            //fill arrays with information         
            for(int row=0;row < languages.size(); row++){
+        	   
+               for (int col=0; col < scoreFiles.size()+1; col++){
             	   
                information[row][0] = languages.get(row);
                information[row][i+1] = scores.get(row);
                
+               }
            }
    		}    
    		
@@ -171,7 +169,9 @@ public class ResultStore {
    	              		
    		   	}
    		   	  	
-
+   			FileUtils.writeStringToFile(file, "\n\n\nSCORES FOR ALL LANGUAGES AND TOOLS \nSCORE FORMAT:<ACCURACY>TAB<PRECISION>TAB<RECALL>", true);
+   			
+   	
 
 	}
 
