@@ -259,7 +259,11 @@ public class LanguageDetectorWeb1T
 		defaultFormat.setMinimumFractionDigits(2);
 
 		for (Entry<String, Double> entry : newMap.entrySet()) {
+			
+			double certainty = (entry.getValue()/sum)*100;
+			
 		    System.out.println("Language: " + entry.getKey() + " Certainty: " + defaultFormat.format(entry.getValue()/sum));
+		    
 		}
     	
     }
