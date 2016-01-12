@@ -122,22 +122,6 @@ public class LanguageDetectorWeb1T
         	Map<String,Double> langProbs;
         	String maxLanguage = "x-unspecified";
         	
-//        	langProbs = getSingleLanguageProbabilities(ngrams, false);
-//            Double maxLanguageValue = 0.0;
-//            if (langProbs.values().size() > 0) {
-//            maxLanguageValue = Collections.max(langProbs.values());
-//            
-//            for (String lang : langProbs.keySet()) {
-//                double prob = langProbs.get(lang);
-//                if (langProbs.get(lang).equals(maxLanguageValue)) {
-//                    maxLanguage = lang;
-//                }
-//                System.out.println(lang + " - " + prob);
-//            }
-//            
-//            }
-            
-//            if (hasDuplicates(langProbs)) {
             	
             	langProbs = getLanguageProbabilities(ngrams);
             	int zeroCounter = 0; //counter used to check if all probs are zero
@@ -155,7 +139,6 @@ public class LanguageDetectorWeb1T
                     }
                 }
                 
-//            }	
                 
             if (zeroCounter == langProbs.size()) {
             	maxLanguage = "x-unspecified";
