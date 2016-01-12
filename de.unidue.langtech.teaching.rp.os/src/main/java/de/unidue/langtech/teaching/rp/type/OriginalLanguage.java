@@ -11,7 +11,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Thu Nov 19 16:03:16 CET 2015
+ * Updated by JCasGen Tue Jan 12 23:37:40 CET 2016
  * XML source: C:/Users/Onur/git/research-project/de.unidue.langtech.teaching.rp.os/src/main/resources/desc/type/LanguageType.xml
  * @generated */
 public class OriginalLanguage extends Annotation {

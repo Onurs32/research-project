@@ -17,7 +17,6 @@
  ******************************************************************************/
 package de.unidue.langtech.teaching.rp.detector;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -27,7 +26,6 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import org.apache.commons.collections.map.MultiKeyMap;
-import org.apache.commons.lang.StringUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
@@ -110,13 +108,7 @@ public class LanguageDetectorWeb1T
         }
         
         List<String> ngrams = new ArrayList<String>();
-//        if (words.size() > 1) {
-//            ngrams.add(getNgram(BOS, words.get(0), words.get(1)));
-//        }
-        
-//        for (String ngram : new NGramStringIterable(words, 1, 1)) {
-//            ngrams.add(ngram);
-//        }
+
         
         for (String ngram : new NGramStringIterable(words, 1, 1)) {
         	ngram = ngram.replaceAll("#", "").replaceAll("RT", "");
@@ -169,9 +161,22 @@ public class LanguageDetectorWeb1T
             	maxLanguage = "x-unspecified";
             }
             
-//            getCertainty(langProbs);
+//            Map<String, Double> langProbabilities = getCertainty(langProbs);
+//            
+//            NumberFormat defaultFormat = NumberFormat.getPercentInstance();
+//    		defaultFormat.setMinimumFractionDigits(2);
+//    		
+//    		System.out.println("Possible languages listed below: ");
+//            
+//        	for (Entry<String, Double> langEntry : langProbabilities.entrySet()) {
+//        		
+//        		System.out.println("Language : " + langEntry.getKey() + " Certainty : " + defaultFormat.format(langEntry.getValue()));
+//        	}
+//        	
+//        	System.out.println("Classified " + langProbabilities.size() + " possible languages");
             
             jcas.setDocumentLanguage(maxLanguage);
+            
         }
         catch (Exception e) {
             throw new AnalysisEngineProcessException(e);
@@ -242,12 +247,14 @@ public class LanguageDetectorWeb1T
     }
     
     @SuppressWarnings("unused")
-	private void getCertainty(Map<String,Double> map) {
+	private Map<String, Double> getCertainty(Map<String,Double> map) {
     	
     	double maxProb = Collections.max(map.values());
     	
 		Map<String,Double> newMap = new HashMap<String, Double>();
 		double sum = 0.0;
+		
+		Map<String,Double> languageProbabilities = new HashMap<String, Double>();
 		
 		
 		for (Entry<String, Double> entry : map.entrySet()) {
@@ -255,16 +262,21 @@ public class LanguageDetectorWeb1T
 		    sum += Math.exp(entry.getValue() - maxProb);
 		}
 		
-		NumberFormat defaultFormat = NumberFormat.getPercentInstance();
-		defaultFormat.setMinimumFractionDigits(2);
 
 		for (Entry<String, Double> entry : newMap.entrySet()) {
 			
-			double certainty = (entry.getValue()/sum)*100;
-			
-		    System.out.println("Language: " + entry.getKey() + " Certainty: " + defaultFormat.format(entry.getValue()/sum));
+			double certainty = entry.getValue()/sum;
+
+			if (certainty > 0.1 ) {
+				
+				languageProbabilities.put(entry.getKey(), certainty);
+				
+			}
+		    
 		    
 		}
+		
+		return languageProbabilities;
     	
     }
     
@@ -330,10 +342,6 @@ public class LanguageDetectorWeb1T
         return textLogProbability;
     }
     
-    @SuppressWarnings("unused")
-	private String getNgram(String ...strings) {
-        return StringUtils.join(strings, " ");
-    }
     
     private void setTextProbability(TreeMap<Double,String> langProbs, Map<String,Double> textLogProbability) {
     	
