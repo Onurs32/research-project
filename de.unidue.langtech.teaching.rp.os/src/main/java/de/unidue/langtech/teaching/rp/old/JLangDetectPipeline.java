@@ -1,83 +1,41 @@
-/*******************************************************************************
- * Copyright 2010
- * Ubiquitous Knowledge Processing (UKP) Lab
- * Technische Universität Darmstadt
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- ******************************************************************************/
 package de.unidue.langtech.teaching.rp.old;
 
-import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngine;
-import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription;
-
 import java.io.File;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.uima.analysis_engine.AnalysisEngine;
-import org.apache.uima.jcas.JCas;
-
+import java.io.IOException;
+import org.apache.uima.UIMAException;
+import org.apache.uima.fit.factory.AnalysisEngineFactory;
+import org.apache.uima.fit.factory.CollectionReaderFactory;
+import org.apache.uima.fit.pipeline.SimplePipeline;
+import de.tudarmstadt.ukp.dkpro.core.arktools.ArktweetTokenizer;
 import de.unidue.langtech.teaching.rp.detector.JLangDetect;
+import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorConfMatrix;
+import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
 
-public
-class JLangDetectPipeline
-{
+public class JLangDetectPipeline {
 
-	public static void main(String[] args)
-	throws Exception
-	{
-        AnalysisEngine engine = createEngine(
-                    createEngineDescription(
-                    		JLangDetect.class,
-                    		JLangDetect.PARAM_LANGUAGES, new String[]{"en", "fr", "es", "de", "nl"}
-                         )
-                    );
+	public static void main(String[] args) throws IOException, UIMAException {
+		
+    	System.out.println("Started language detection");
+    	double start = System.currentTimeMillis();
+
+		
+        SimplePipeline.runPipeline(
+                CollectionReaderFactory.createReader(
+                        TwitterLIDReader.class,
+                        TwitterLIDReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.tst"
+                ),
+                AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
+                AnalysisEngineFactory.createEngineDescription(JLangDetect.class,
+                		JLangDetect.PARAM_LANGUAGES, new String[]{"en", "fr", "es", "de", "nl"}),
+                AnalysisEngineFactory.createEngineDescription(LanguageEvaluatorConfMatrix.class,
+                		LanguageEvaluatorConfMatrix.PARAM_LANGUAGES, new String[]{"en", "fr", "es", "de", "nl"},
+                		LanguageEvaluatorConfMatrix.PARAM_SCORE_FILE, new File("D:/_Projekt_Korpora/Scores.txt"))
+                );
         
-        double nrOfLines = 0;
-        double nrOfCorrectOnes = 0;
-        NumberFormat defaultFormat = NumberFormat.getPercentInstance();
-		defaultFormat.setMinimumFractionDigits(2);
-		List<String> falseDetected = new ArrayList<String>();
-                 
-        for (String line : FileUtils.readLines(new File("D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.trn"))) {
-        	nrOfLines++;
-            String[] parts = line.split("\t");
-            String text = parts[1];
-            String language = parts[2];
-            
-            JCas aJCas = engine.newJCas();
-            aJCas.setDocumentText(text);
-            engine.process(aJCas);
-            
-            String[] languageParts = aJCas.getDocumentLanguage().split("/");
-            String casLanguage = languageParts[languageParts.length-1];
-            
-            System.out.println(aJCas.getDocumentText());
-            System.out.println("Language: " + language + "\n" + "Detected Language: " + casLanguage);
-            if (language.equals(casLanguage)) {
-            	nrOfCorrectOnes++;
-            } else {
-            	falseDetected.add(aJCas.getDocumentText()+ "\t" + language + "\t" + casLanguage);
-            }
-        }  
-        
-        System.out.println("Accuracy: " + defaultFormat.format(nrOfCorrectOnes/nrOfLines));
-        
-        for (String falseOnes : falseDetected) {
-        	System.out.println(falseOnes + "\n");
-        }
+        double end = System.currentTimeMillis();
+        double time = end - start;
+        System.out.println("Language detection took " + time/1000 + " seconds");
+
 	}
 
 }
