@@ -26,16 +26,15 @@ public class Web1TMinimizer {
 		        String line = it.nextLine();
 		        
 		        String [] parts = line.split("\t");
-		        String word = parts[0];
 		        long frequency = Long.parseLong(parts[1]);
 		        
 		     
 		        
 		        if (frequency > 100) {
 		        	
-//		    		out.println(word + "\t" + frequency);
+//		    		out.println(line);
 		        	
-		    		fbw.write(word + "\t" + frequency);
+		    		fbw.write(line);
 		    		fbw.newLine();
 	
 		        }

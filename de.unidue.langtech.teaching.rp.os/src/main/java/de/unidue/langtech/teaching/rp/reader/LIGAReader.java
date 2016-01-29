@@ -39,9 +39,7 @@ public class LIGAReader
     private List<String> lines;
     private int currentLine;
     
-    /* 
-     * initializes the reader
-     */
+
     @Override
     public void initialize(UimaContext context)
         throws ResourceInitializationException
@@ -58,9 +56,7 @@ public class LIGAReader
     }
     
     
-    /* 
-     * true, if there is a next document, false otherwise
-     */
+
     public boolean hasNext()
         throws IOException, CollectionException
     {
@@ -68,9 +64,7 @@ public class LIGAReader
     }
     
     
-    /* 
-     * feeds the next document into the pipeline
-     */
+
     @Override
     public void getNext(JCas jcas)
         throws IOException, CollectionException
@@ -88,9 +82,6 @@ public class LIGAReader
     }
 
     
-    /* 
-     * informs the pipeline about the current progress
-     */
     public Progress[] getProgress()
     {
         return new Progress[] { new ProgressImpl(currentLine, lines.size(), "lines") };

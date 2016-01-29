@@ -114,6 +114,8 @@ public class LanguageEvaluatorConfMatrix
         	double fp = values.get(2);
         	double fn = values.get(3);
         	
+        	//source: https://github.com/dkpro/dkpro-csniper/blob/master/csniper-ml/src/main/java/de/tudarmstadt/ukp/csniper/ml/TKSVMlightResultConsumer.java
+        	
         	
     		if (actualLanguage.equals(language)) { //de
     			if (actualLanguage.equals(detectedLanguage)) { //de as de
@@ -164,6 +166,8 @@ public class LanguageEvaluatorConfMatrix
         	double fp = values.get(2);
         	double fn = values.get(3);
         	
+        	//source: https://github.com/dkpro/dkpro-csniper/blob/master/csniper-ml/src/main/java/de/tudarmstadt/ukp/csniper/ml/TKSVMlightResultConsumer.java
+        	
     		double accuracy = (tp + tn) / (tp + tn + fp + fn);
     		double precision = tp / (tp + fp);
     		double recall = tp / (tp + fn);
@@ -190,14 +194,24 @@ public class LanguageEvaluatorConfMatrix
 		
     }
     
+    /**
+     * Based on: http://stackoverflow.com/a/26857286/3677505
+     * @param confMatrix
+     */
     public void printConfMatrix(Map <String, Integer> confMatrix) {
     	
     	Set<String> classNames = new HashSet<String>();
+    	
     	for(String key : confMatrix.keySet()) {
+    		
     	    String[] classes = key.split(",");
+    	    
     	    if(classes != null && classes.length > 0) {
+    	    	
     	        classNames.addAll(Arrays.asList(classes));
+    	        
     	    }
+    	    
     	}
     	
     	List<String> sortedClassNames = new ArrayList<String>();
@@ -205,21 +219,34 @@ public class LanguageEvaluatorConfMatrix
     	Collections.sort(sortedClassNames);
     	
     	System.out.print("Gold/Detected");
+    	
     	for(String predictedClassName : sortedClassNames) {
+    		
     	    System.out.print("\t\t" + predictedClassName + "\t");
+    	    
     	}
+    	
     	System.out.println();
     	
     	for(String actualClassName : sortedClassNames) {
+    		
     	    System.out.print(actualClassName);
+    	    
     	    for(String predictedClassName : sortedClassNames) {
+    	    	
     	        Integer value = confMatrix.get(actualClassName + "," + predictedClassName);
     	        System.out.print("\t\t\t");
+    	        
     	        if(value != null) {
+    	        	
     	            System.out.print(value);
+    	            
     	        }
+    	        
     	    }
+    	    
     	    System.out.println();
+    	    
     	}
     	
     }

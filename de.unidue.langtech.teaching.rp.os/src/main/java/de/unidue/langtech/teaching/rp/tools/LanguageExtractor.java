@@ -34,9 +34,13 @@ public class LanguageExtractor extends JCasAnnotator_ImplBase{
 			if (aJCas.getDocumentLanguage().equals(language)) {
 			
 				try {
+					
 					FileUtils.writeStringToFile(file, aJCas.getDocumentText() + "\t" + aJCas.getDocumentLanguage() + "\n", true);
+					
 				} catch (IOException e) {
+					
 					throw new AnalysisEngineProcessException(e);
+					
 				}
 				
 			}

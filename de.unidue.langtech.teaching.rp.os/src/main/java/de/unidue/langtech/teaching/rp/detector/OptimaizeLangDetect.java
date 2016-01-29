@@ -62,6 +62,12 @@ public class OptimaizeLangDetect extends JCasAnnotator_ImplBase {
 		
 	}
 	
+	/**
+	 * Based on makeNewDetector() method from LanguageDetectorImplTest
+	 * https://github.com/optimaize/language-detector/blob/master/src/test/java/com/optimaize/langdetect/LanguageDetectorImplTest.java
+	 * @return
+	 * @throws IOException
+	 */
 	private LanguageDetector makeNewDetector() throws IOException {
         LanguageDetectorBuilder builder = LanguageDetectorBuilder.create(NgramExtractors.standard());
 

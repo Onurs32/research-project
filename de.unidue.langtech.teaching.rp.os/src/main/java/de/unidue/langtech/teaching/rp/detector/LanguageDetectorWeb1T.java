@@ -146,7 +146,7 @@ public class LanguageDetectorWeb1T
             
 //            Map<String, Double> langProbabilities = getCertainty(langProbs);
 //            
-//            NumberFormat defaultFormat = NumberFormat.getPercentInstance();
+//          NumberFormat defaultFormat = NumberFormat.getPercentInstance();
 //    		defaultFormat.setMinimumFractionDigits(2);
 //    		
 //    		System.out.println("Possible languages listed below: ");
@@ -230,6 +230,11 @@ public class LanguageDetectorWeb1T
     }
     
     @SuppressWarnings("unused")
+    /**
+     * Mathematics mainly based on http://stats.stackexchange.com/a/66621
+     * @param map
+     * @return
+     */
 	private Map<String, Double> getCertainty(Map<String,Double> map) {
     	
     	double maxProb = Collections.max(map.values());
@@ -331,8 +336,11 @@ public class LanguageDetectorWeb1T
         System.out.println("LangProb: " + langProbs);
         System.out.println("Highest Prob: " + langProbs.lastEntry());
         Double previousValue = textLogProbability.get(langProbs.get(langProbs.lastKey()));
+        
         if (previousValue == null ){
+        	
         	previousValue = 0.0;
+        	
         }
         textLogProbability.put(langProbs.get(langProbs.lastKey()), 1 + previousValue);
         System.out.println("TextLogProb: " + textLogProbability);
@@ -347,13 +355,23 @@ public class LanguageDetectorWeb1T
     	
     	List<String> maxEntrys = new ArrayList<String>();
     	
+    	
     	if (map.values().size() > 0) {
-        double maxValueInMap =(Collections.max(map.values()));  
+    	
+        //source: http://stackoverflow.com/a/11256352/3677505
+    		
+        double maxValueInMap = (Collections.max(map.values()));  
+        
         for (Entry<String, Double> entry : map.entrySet()) {  
+        	
             if (entry.getValue() == maxValueInMap) {
+            	
             	maxEntrys.add(entry.getKey());     
+            	
             }
+            
         }
+        
     	}
     	
         if (maxEntrys.size() > 1) {

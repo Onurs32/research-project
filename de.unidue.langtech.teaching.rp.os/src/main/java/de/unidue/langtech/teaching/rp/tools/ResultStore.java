@@ -159,6 +159,7 @@ public class ResultStore {
    	        		   String timeString = parts[1];
    	        		   double time = Double.parseDouble(timeString);
    	        		   
+   	        		   //source: http://alvinalexander.com/java/java-decimalformat-example-numberformat
    	        		   DecimalFormat tf = new DecimalFormat("#.##");
    	        		   times.add(tf.format(time));
    	        		   
