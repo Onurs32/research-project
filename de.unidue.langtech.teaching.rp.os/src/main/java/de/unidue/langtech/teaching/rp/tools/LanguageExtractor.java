@@ -18,9 +18,7 @@ public class LanguageExtractor extends JCasAnnotator_ImplBase{
     @ConfigurationParameter(name = PARAM_DESIRED_LANGUAGES, mandatory = false)
     private static String[] languages;
     
-    /**
-     * Languages that are desired.
-     */
+
     public static final String PARAM_OUTPUT_FILE = "file";
     @ConfigurationParameter(name = PARAM_OUTPUT_FILE, mandatory = false)
     private static File file;

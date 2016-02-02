@@ -170,9 +170,7 @@ public class ResultStore {
    	           
    	        FileUtils.writeStringToFile(file, "\nTime for " + toolTimeName + ": " + times.get(i) + " s", true);
    	              		
-   		   	}
-   		   	  	
-
+   		   	}   	  	
 
 	}
 
