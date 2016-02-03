@@ -25,7 +25,7 @@ import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
  * @author suenme
  *
  */
-public class LIGAReader
+public class LIGAEuroParlReader
     extends JCasCollectionReader_ImplBase
 {
 

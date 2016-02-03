@@ -24,7 +24,7 @@ import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
 import de.unidue.langtech.teaching.rp.detector.OptimaizeLangDetect;
 import de.unidue.langtech.teaching.rp.detector.TikaLanguageIdentifier;
 import de.unidue.langtech.teaching.rp.old.LanguageEvaluatorPrecisionRecall;
-import de.unidue.langtech.teaching.rp.reader.LIGAReader;
+import de.unidue.langtech.teaching.rp.reader.LIGAEuroParlReader;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
 import de.unidue.langtech.teaching.rp.tools.ResultStore;
 import de.unidue.langtech.teaching.rp.tools.Stopwatch;
@@ -47,8 +47,8 @@ public class MainPipeline {
     	//LIGA Corpus
     	@SuppressWarnings("unused")
 		CollectionReaderDescription ligaCorpus = CollectionReaderFactory.createReaderDescription(
-    			LIGAReader.class,
-    			LIGAReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 2 - LIGA/corpus_LIGA.txt"
+    			LIGAEuroParlReader.class,
+    			LIGAEuroParlReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 2 - LIGA/corpus_LIGA.txt"
         );
     	
         CorpusConfiguration corpus = new CorpusConfiguration(twitterCorpus, "TwitterLID_Training");
