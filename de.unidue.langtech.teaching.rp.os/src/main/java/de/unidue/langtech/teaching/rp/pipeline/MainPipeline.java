@@ -26,9 +26,9 @@ import de.unidue.langtech.teaching.rp.detector.TikaLanguageIdentifier;
 import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorConfMatrix;
 import de.unidue.langtech.teaching.rp.reader.LIGAEuroParlReader;
 import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
-import de.unidue.langtech.teaching.rp.tools.ResultStore;
-import de.unidue.langtech.teaching.rp.tools.Stopwatch;
-import de.unidue.langtech.teaching.rp.tools.Writer;
+import de.unidue.langtech.teaching.rp.results.ResultStore;
+import de.unidue.langtech.teaching.rp.uimatools.Stopwatch;
+import de.unidue.langtech.teaching.rp.uimatools.Writer;
 
 public class MainPipeline 
 {

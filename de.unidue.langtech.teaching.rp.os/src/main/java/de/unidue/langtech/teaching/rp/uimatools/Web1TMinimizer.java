@@ -1,4 +1,4 @@
-package de.unidue.langtech.teaching.rp.tools;
+package de.unidue.langtech.teaching.rp.uimatools;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;

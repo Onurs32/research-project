@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package de.unidue.langtech.teaching.rp.tools;
+package de.unidue.langtech.teaching.rp.uimatools;
 
 import java.io.File;
 import java.io.FileNotFoundException;
