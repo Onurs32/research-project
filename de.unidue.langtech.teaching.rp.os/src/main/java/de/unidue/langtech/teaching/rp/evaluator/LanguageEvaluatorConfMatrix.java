@@ -52,10 +52,6 @@ public class LanguageEvaluatorConfMatrix
 	
 	private static HashMap<String,Integer> confMatrix;
     
-    
-    /* 
-     * This is called BEFORE any documents are processed.
-     */
     @Override
     public void initialize(UimaContext context)
         throws ResourceInitializationException
@@ -76,10 +72,6 @@ public class LanguageEvaluatorConfMatrix
  
     }
     
-    
-    /* 
-     * This is called ONCE for each document
-     */
     @Override
     public void process(JCas jcas)
         throws AnalysisEngineProcessException
@@ -104,8 +96,6 @@ public class LanguageEvaluatorConfMatrix
         }
         
         for (String language : languages) {
-        	
-
 
         	List <Double> values = languageMaps.get(language);
         	
@@ -115,7 +105,6 @@ public class LanguageEvaluatorConfMatrix
         	double fn = values.get(3);
         	
         	//source: https://github.com/dkpro/dkpro-csniper/blob/master/csniper-ml/src/main/java/de/tudarmstadt/ukp/csniper/ml/TKSVMlightResultConsumer.java
-        	
         	
     		if (actualLanguage.equals(language)) { //de
     			if (actualLanguage.equals(detectedLanguage)) { //de as de
@@ -134,18 +123,12 @@ public class LanguageEvaluatorConfMatrix
     			
     		}
     		
-    		
     		languageMaps.put(language, Arrays.asList(tp, tn, fp, fn));
-    		
         	
         }
 
     }
 
-
-    /* 
-     * This is called AFTER all documents have been processed.
-     */
     @Override
     public void collectionProcessComplete()
         throws AnalysisEngineProcessException
@@ -179,26 +162,24 @@ public class LanguageEvaluatorConfMatrix
         	System.out.println("Scores for language: " + languages[i] + "\nAccuracy: " + 
         						accuracyFormatted + "\nPrecision: " + precisionFormatted + "\nRecall: " + recallFormatted + "\n");
         	
-
-        		
                 try {
         			FileUtils.writeStringToFile(scoreFile, languages[i] + "\t" + accuracyFormatted + "___" + precisionFormatted + "___" + recallFormatted + "\n", true);
         		} catch (IOException e) {
         			throw new AnalysisEngineProcessException(e);
         		}        
-        		
-        	
+
 		}
 		
     	printConfMatrix(confMatrix);
 		
     }
     
-    /**
+    /*
      * Based on: http://stackoverflow.com/a/26857286/3677505
      * @param confMatrix
      */
-    public void printConfMatrix(Map <String, Integer> confMatrix) {
+    public void printConfMatrix(Map <String, Integer> confMatrix) 
+    {
     	
     	Set<String> classNames = new HashSet<String>();
     	
@@ -207,9 +188,7 @@ public class LanguageEvaluatorConfMatrix
     	    String[] classes = key.split(",");
     	    
     	    if(classes != null && classes.length > 0) {
-    	    	
     	        classNames.addAll(Arrays.asList(classes));
-    	        
     	    }
     	    
     	}
@@ -221,15 +200,13 @@ public class LanguageEvaluatorConfMatrix
     	System.out.print("Gold/Detected");
     	
     	for(String predictedClassName : sortedClassNames) {
-    		
     	    System.out.print("\t\t" + predictedClassName + "\t");
-    	    
     	}
     	
     	System.out.println();
     	
     	for(String actualClassName : sortedClassNames) {
-    		
+
     	    System.out.print(actualClassName);
     	    
     	    for(String predictedClassName : sortedClassNames) {
@@ -238,9 +215,7 @@ public class LanguageEvaluatorConfMatrix
     	        System.out.print("\t\t\t");
     	        
     	        if(value != null) {
-    	        	
     	            System.out.print(value);
-    	            
     	        }
     	        
     	    }
@@ -250,4 +225,5 @@ public class LanguageEvaluatorConfMatrix
     	}
     	
     }
+    
 }

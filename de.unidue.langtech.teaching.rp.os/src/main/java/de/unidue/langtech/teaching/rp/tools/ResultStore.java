@@ -12,11 +12,12 @@ import org.apache.commons.io.FileUtils;
 import dnl.utils.text.table.TextTable;
 
 
-public class ResultStore {
+public class ResultStore 
+{
 	
-
-	public static void saveResults(List<File> toolFiles, String corpusName) throws IOException {
-		
+	public static void saveResults(List<File> toolFiles, String corpusName) 
+			throws IOException 
+	{
 		
 	List <String> temp = FileUtils.readLines(toolFiles.get(0));
 	int rowLength = temp.size();
@@ -64,12 +65,16 @@ public class ResultStore {
    		} 
    	
 	   	for (int i=0;i<information.length;i++) {
+	   		
    	   	    boolean equal = true;
+   	   	    
    	   	    for (int j=3;j<information[i].length;j++) {
+   	   	    	
    	   	        if (!information[i][2].equals(information[i][j]) && information[i][j] != null) {
    	   	            equal = false;
    	   	            break;
    	   	        }
+   	   	        
    	   	    }
    	   	    
    	   	    if (!equal) {
@@ -92,8 +97,9 @@ public class ResultStore {
 
 	}
 	
-	public static void saveScores(List<File> scoreFiles, List<File> timeFiles, String corpusName) throws IOException {
-		
+	public static void saveScores(List<File> scoreFiles, List<File> timeFiles, String corpusName) 
+			throws IOException 
+	{
 		
 	List <String> temp = FileUtils.readLines(scoreFiles.get(0));
 	int rowLength = temp.size();
@@ -115,14 +121,11 @@ public class ResultStore {
            scores.add("ACCURACY__PRECISION__RECALL");
            
            for (String toolInfo : toolInformation) {
-        	   
         	   String[] parts = toolInfo.split("\t");
         	   languages.add(parts[0]);
         	   scores.add(parts[1]);
-        	   
            }
            
-       	
        	String toolScoreName = scoreFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_scores", "");;
            
            columnNames[0] = "Language";
@@ -130,10 +133,8 @@ public class ResultStore {
            
            //fill arrays with information         
            for(int row=0;row < languages.size(); row++){
-            	   
                information[row][0] = languages.get(row);
                information[row][i+1] = scores.get(row);
-               
            }
    		}    
    		
@@ -154,7 +155,6 @@ public class ResultStore {
    	           for (String timeInfo : timeInformation) {
    	        	   
    	        	   if (timeInfo.startsWith("sum")) {
-   	        		   
    	        		   String[] parts = timeInfo.split("=");
    	        		   String timeString = parts[1];
    	        		   double time = Double.parseDouble(timeString);
@@ -162,11 +162,9 @@ public class ResultStore {
    	        		   //source: http://alvinalexander.com/java/java-decimalformat-example-numberformat
    	        		   DecimalFormat tf = new DecimalFormat("#.##");
    	        		   times.add(tf.format(time));
-   	        		   
    	        	   }
    	        	   
    	           }
-   	           
    	           
    	        FileUtils.writeStringToFile(file, "\nTime for " + toolTimeName + ": " + times.get(i) + " s", true);
    	              		

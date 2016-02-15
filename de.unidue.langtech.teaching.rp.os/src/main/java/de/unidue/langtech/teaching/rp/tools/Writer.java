@@ -12,15 +12,17 @@ import org.apache.uima.jcas.JCas;
 
 import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
 
-public class Writer extends JCasAnnotator_ImplBase{
+public class Writer 
+	extends JCasAnnotator_ImplBase
+{
 	
 	public static final String PARAM_RESULT_FILE = "ResultFile";
     @ConfigurationParameter(name = PARAM_RESULT_FILE, mandatory = true)
     private File resultFile;
 
-	
-	
-	public void process(JCas jcas) throws AnalysisEngineProcessException {
+	public void process(JCas jcas) 
+			throws AnalysisEngineProcessException 
+	{
 		
         
         OriginalLanguage actual = JCasUtil.selectSingle(jcas, OriginalLanguage.class);
@@ -29,15 +31,13 @@ public class Writer extends JCasAnnotator_ImplBase{
         String detectedLanguage = jcas.getDocumentLanguage();
         String text = jcas.getDocumentText();
         String information = text + "\t" + actualLanguage + "\t" + detectedLanguage;
-        
         	
             try {
     			FileUtils.writeStringToFile(resultFile, information + "\n", true);
     		} catch (IOException e) {
     			throw new AnalysisEngineProcessException(e);
     		}
-            
-		
+
 	}
 
 }

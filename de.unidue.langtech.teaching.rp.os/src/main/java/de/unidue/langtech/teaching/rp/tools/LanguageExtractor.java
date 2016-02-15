@@ -9,7 +9,9 @@ import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
 import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.jcas.JCas;
 
-public class LanguageExtractor extends JCasAnnotator_ImplBase{
+public class LanguageExtractor 
+	extends JCasAnnotator_ImplBase
+{
 	
     /**
      * Languages that are desired.
@@ -24,27 +26,21 @@ public class LanguageExtractor extends JCasAnnotator_ImplBase{
     private static File file;
 
 	@Override
-	public void process(JCas aJCas) throws AnalysisEngineProcessException {
-		
+	public void process(JCas aJCas) 
+			throws AnalysisEngineProcessException 
+	{
 		
 		for (String language : languages) {
 
 			if (aJCas.getDocumentLanguage().equals(language)) {
-			
-				try {
-					
-					FileUtils.writeStringToFile(file, aJCas.getDocumentText() + "\t" + aJCas.getDocumentLanguage() + "\n", true);
-					
-				} catch (IOException e) {
-					
-					throw new AnalysisEngineProcessException(e);
-					
-				}
 				
+				try {
+					FileUtils.writeStringToFile(file, aJCas.getDocumentText() + "\t" + aJCas.getDocumentLanguage() + "\n", true);
+				} catch (IOException e) {
+					throw new AnalysisEngineProcessException(e);
+				}
 			}
-		
 		}
-		
 	}
 
 }

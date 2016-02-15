@@ -22,7 +22,9 @@ import org.apache.uima.resource.ResourceInitializationException;
  *
  *
  */
-public class OptimaizeLangDetect extends JCasAnnotator_ImplBase {
+public class OptimaizeLangDetect 
+	extends JCasAnnotator_ImplBase 
+{
 	
     /**
      * Languages that should be considered. 
@@ -49,28 +51,30 @@ public class OptimaizeLangDetect extends JCasAnnotator_ImplBase {
 	
 
 	@Override
-	public void process(JCas aJCas) throws AnalysisEngineProcessException {
+	public void process(JCas aJCas) 
+			throws AnalysisEngineProcessException 
+	{
 	    
 	    String docText = aJCas.getDocumentText();
 		if (docText != null) {
-			
 		    List<DetectedLanguage> result = languageDetector.getProbabilities(docText);
 		    DetectedLanguage best = result.get(0);
-		    
 		    aJCas.setDocumentLanguage(best.getLocale().getLanguage());
 		}
 		
 	}
 	
-	/**
+	/*
 	 * Based on makeNewDetector() method from LanguageDetectorImplTest
 	 * https://github.com/optimaize/language-detector/blob/master/src/test/java/com/optimaize/langdetect/LanguageDetectorImplTest.java
 	 * @return
 	 * @throws IOException
 	 */
-	private LanguageDetector makeNewDetector() throws IOException {
+	private LanguageDetector makeNewDetector() 
+			throws IOException 
+	{
+		
         LanguageDetectorBuilder builder = LanguageDetectorBuilder.create(NgramExtractors.standard());
-
         LanguageProfileReader langProfileReader = new LanguageProfileReader();
         for (String language : languages) {
             LanguageProfile languageProfile = langProfileReader.read(OptimaizeLangDetect.class.getResourceAsStream("/languages/" + language));
@@ -79,6 +83,5 @@ public class OptimaizeLangDetect extends JCasAnnotator_ImplBase {
 
         return builder.build();
     }
-
 
 }

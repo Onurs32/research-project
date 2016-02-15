@@ -74,13 +74,13 @@ public class LanguageDetectorWeb1T
 
     private Map<String,FrequencyCountProvider> providerMap;
     
-    
     private MultiKeyMap multiKeyMap;
     
     @Override
     public void initialize(UimaContext context)
         throws ResourceInitializationException
     {
+    	
         super.initialize(context);
         
         providerMap = new HashMap<String,FrequencyCountProvider>();
@@ -94,6 +94,7 @@ public class LanguageDetectorWeb1T
                 throw new ResourceInitializationException(e);
             }
         }
+        
     }
 
     @Override
@@ -108,7 +109,6 @@ public class LanguageDetectorWeb1T
         }
         
         List<String> ngrams = new ArrayList<String>();
-
         
         for (String ngram : new NGramStringIterable(words, 1, 1)) {
         	ngram = ngram.replaceAll("#", "").replaceAll("RT", "");
@@ -230,12 +230,13 @@ public class LanguageDetectorWeb1T
     }
     
     @SuppressWarnings("unused")
-    /**
+    /*
      * Mathematics mainly based on http://stats.stackexchange.com/a/66621
      * @param map
      * @return
      */
-	private Map<String, Double> getCertainty(Map<String,Double> map) {
+	private Map<String, Double> getCertainty(Map<String,Double> map) 
+    {
     	
     	double maxProb = Collections.max(map.values());
     	
@@ -244,23 +245,17 @@ public class LanguageDetectorWeb1T
 		
 		Map<String,Double> languageProbabilities = new HashMap<String, Double>();
 		
-		
 		for (Entry<String, Double> entry : map.entrySet()) {
 		    newMap.put(entry.getKey(), Math.exp(entry.getValue() - maxProb));
 		    sum += Math.exp(entry.getValue() - maxProb);
 		}
-		
 
 		for (Entry<String, Double> entry : newMap.entrySet()) {
-			
 			double certainty = entry.getValue()/sum;
 
 			if (certainty > 0.1 ) {
-				
 				languageProbabilities.put(entry.getKey(), certainty);
-				
 			}
-		    
 		    
 		}
 		
@@ -277,21 +272,16 @@ public class LanguageDetectorWeb1T
        
         for (String ngram : ngrams) {
         	
-            TreeMap<Double,String> langProbs = new TreeMap<Double,String>();
-        	
-                                    
+            TreeMap<Double,String> langProbs = new TreeMap<Double,String>();              
         	 double logProb = 0.0;
 
             for (String lang : providerMap.keySet()) {
-            	
             	
                 FrequencyCountProvider provider = providerMap.get(lang);
                 
                 long nrOfUnigrams = provider.getNrOfNgrams(1);
                 long nrOfBigrams  = provider.getNrOfNgrams(2);
                 long nrOfTrigrams = provider.getNrOfNgrams(3);
-                
-       
                 
                 long frequency = provider.getFrequency(ngram);
 
@@ -330,17 +320,15 @@ public class LanguageDetectorWeb1T
         return textLogProbability;
     }
     
-    
-    private void setTextProbability(TreeMap<Double,String> langProbs, Map<String,Double> textLogProbability) {
+    private void setTextProbability(TreeMap<Double,String> langProbs, Map<String,Double> textLogProbability) 
+    {
     	
         System.out.println("LangProb: " + langProbs);
         System.out.println("Highest Prob: " + langProbs.lastEntry());
         Double previousValue = textLogProbability.get(langProbs.get(langProbs.lastKey()));
         
         if (previousValue == null ){
-        	
         	previousValue = 0.0;
-        	
         }
         textLogProbability.put(langProbs.get(langProbs.lastKey()), 1 + previousValue);
         System.out.println("TextLogProb: " + textLogProbability);
@@ -349,12 +337,12 @@ public class LanguageDetectorWeb1T
     
     
     @SuppressWarnings("unused")
-	private boolean hasDuplicates(Map<String, Double> map){
+	private boolean hasDuplicates(Map<String, Double> map)
+    {
     	
     	boolean status = false;
     	
     	List<String> maxEntrys = new ArrayList<String>();
-    	
     	
     	if (map.values().size() > 0) {
     	
@@ -365,9 +353,7 @@ public class LanguageDetectorWeb1T
         for (Entry<String, Double> entry : map.entrySet()) {  
         	
             if (entry.getValue() == maxValueInMap) {
-            	
             	maxEntrys.add(entry.getKey());     
-            	
             }
             
         }
@@ -385,4 +371,5 @@ public class LanguageDetectorWeb1T
     	    return status;
 
     	}
+    
 }

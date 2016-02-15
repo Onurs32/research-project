@@ -35,7 +35,8 @@ public class Web1TConverter
 {
 
 
-    public static void main(String[] args) throws Exception
+    public static void main(String[] args) 
+    		throws Exception
     {
         CollectionReader reader = createReader(
                 TextReader.class,

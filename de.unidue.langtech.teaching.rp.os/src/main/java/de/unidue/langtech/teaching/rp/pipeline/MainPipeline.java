@@ -30,9 +30,12 @@ import de.unidue.langtech.teaching.rp.tools.ResultStore;
 import de.unidue.langtech.teaching.rp.tools.Stopwatch;
 import de.unidue.langtech.teaching.rp.tools.Writer;
 
-public class MainPipeline {
+public class MainPipeline 
+{
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) 
+			throws Exception 
+	{
 		
 		String web1TBaseDir = new DkproContext().getWorkspace("Web1T").getAbsolutePath();
 //		String twitterlidBaseDir = new DkproContext().getWorkspace("TwitterLID").getAbsolutePath();
@@ -127,7 +130,6 @@ public class MainPipeline {
         		File scoreFile = new File("D:/_Projekt_Korpora/temp_results/" + corpus.getCorpusName() + "-" + detectorName + "_scores.txt");
         		File timerFile = new File("D:/_Projekt_Korpora/temp_results/" + corpus.getCorpusName() + "-" + detectorName + "_times.txt");
         		
-        		
                 SimplePipeline.runPipeline(
                 		corpus.readerDescription,
 						AnalysisEngineFactory.createEngineDescription(ArktweetTokenizer.class),
@@ -170,7 +172,8 @@ public class MainPipeline {
             corpusName = aReaderName;
         }
         
-        public String getCorpusName(){
+        public String getCorpusName()
+        {
         	return corpusName;
         }
     }

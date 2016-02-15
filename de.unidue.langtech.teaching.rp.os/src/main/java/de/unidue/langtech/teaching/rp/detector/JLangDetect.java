@@ -13,7 +13,9 @@ import org.apache.uima.resource.ResourceInitializationException;
 
 import me.champeau.ld.UberLanguageDetector;
 
-public class JLangDetect extends JCasAnnotator_ImplBase {
+public class JLangDetect 
+	extends JCasAnnotator_ImplBase 
+{
 	
     /**
      * Languages that should be considered. 
@@ -27,9 +29,10 @@ public class JLangDetect extends JCasAnnotator_ImplBase {
     private Set<String> languageRestrictionsSet;
     
     @Override
-    public void initialize(UimaContext context)
-        throws ResourceInitializationException
+    public void initialize(UimaContext context) 
+    		throws ResourceInitializationException 
     {
+    	
     	super.initialize(context);
     	
 		detector = UberLanguageDetector.getInstance();
@@ -39,7 +42,9 @@ public class JLangDetect extends JCasAnnotator_ImplBase {
         
 
 	@Override
-	public void process(JCas aJCas) throws AnalysisEngineProcessException {
+	public void process(JCas aJCas) 
+			throws AnalysisEngineProcessException 
+	{
 		
 	    String docText = aJCas.getDocumentText();
 		if (docText != null) {
