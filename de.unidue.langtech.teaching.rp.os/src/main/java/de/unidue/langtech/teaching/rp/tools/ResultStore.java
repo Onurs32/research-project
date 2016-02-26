@@ -1,4 +1,4 @@
-package de.unidue.langtech.teaching.rp.results;
+package de.unidue.langtech.teaching.rp.tools;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,9 +52,9 @@ public class ResultStore
            columnNames[i+3] = toolName;  
            
            //fill arrays with information         
-           for(int row=0;row < tweets.size(); row++){
+           for(int row = 0; row < tweets.size(); row++){
         	   
-               for (int col=0; col < toolFiles.size()+1; col++){
+               for (int col = 0; col < toolFiles.size() +1 ; col++){
             	   
                information[row][0] = tweets.get(row);
                information[row][2] = goldLang.get(row);
@@ -64,11 +64,11 @@ public class ResultStore
            }
    		} 
    	
-	   	for (int i=0;i<information.length;i++) {
+	   	for (int i = 0; i<information.length; i++) {
 	   		
    	   	    boolean equal = true;
    	   	    
-   	   	    for (int j=3;j<information[i].length;j++) {
+   	   	    for (int j = 3; j<information[i].length; j++) {
    	   	    	
    	   	        if (!information[i][2].equals(information[i][j]) && information[i][j] != null) {
    	   	            equal = false;

@@ -39,6 +39,7 @@ public class LanguageExtractor
 				} catch (IOException e) {
 					throw new AnalysisEngineProcessException(e);
 				}
+				
 			}
 		}
 	}

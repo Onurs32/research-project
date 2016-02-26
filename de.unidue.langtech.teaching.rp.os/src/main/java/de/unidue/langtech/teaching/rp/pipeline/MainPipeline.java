@@ -25,7 +25,7 @@ import de.unidue.langtech.teaching.rp.detector.OptimaizeLangDetect;
 import de.unidue.langtech.teaching.rp.detector.TikaLanguageIdentifier;
 import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorConfMatrix;
 import de.unidue.langtech.teaching.rp.reader.CorpusReader;
-import de.unidue.langtech.teaching.rp.results.ResultStore;
+import de.unidue.langtech.teaching.rp.tools.ResultStore;
 import de.unidue.langtech.teaching.rp.uimatools.Stopwatch;
 import de.unidue.langtech.teaching.rp.uimatools.Writer;
 
