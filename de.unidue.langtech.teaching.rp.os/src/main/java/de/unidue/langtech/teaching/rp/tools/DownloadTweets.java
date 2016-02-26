@@ -7,17 +7,18 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import de.tudarmstadt.ukp.dkpro.core.api.resources.DkproContext;
+
 /**
  * Download tweets by their ID.
- * For this method, only an exception is thrown when tweet is not found (404).
- * When a tweet belongs to a private account, no exception is thrown.
- * So we have to use two lists to bypass this issue.
  * @author Onur
  *
  */
 public class DownloadTweets {
 
 	public static void main(String[] args) throws IOException{
+		
+		    String twitterlidBaseDir = new DkproContext().getWorkspace("TwitterLID").getAbsolutePath();
 			
 			File corpus = new File("D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth.tst");
 			File fullCorpus = new File("D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full_new.tst");
