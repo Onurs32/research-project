@@ -25,7 +25,7 @@ import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
  * @author suenme
  *
  */
-public class TwitterLIDReader
+public class CorpusReader
     extends JCasCollectionReader_ImplBase
 {
 
@@ -72,17 +72,25 @@ public class TwitterLIDReader
         // split line into gold standard language and actual text
         String[] parts = lines.get(currentLine).split("\t");
         
-        jcas.setDocumentText(parts[1]);
-        
-        OriginalLanguage actual = new OriginalLanguage(jcas);
-        actual.setLanguage(parts[2]);
-        actual.addToIndexes();
+        if (parts.length == 3) {
+            jcas.setDocumentText(parts[1]);
+            
+            OriginalLanguage actual = new OriginalLanguage(jcas);
+            actual.setLanguage(parts[2]);
+            actual.addToIndexes();
+            
+        } else {
+            jcas.setDocumentText(parts[0]);
+            
+            OriginalLanguage actual = new OriginalLanguage(jcas);
+            actual.setLanguage(parts[1]);
+            actual.addToIndexes();
+        }
         
         currentLine++;
     }
 
     
-
     public Progress[] getProgress()
     {
         return new Progress[] { new ProgressImpl(currentLine, lines.size(), "lines") };

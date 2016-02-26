@@ -24,8 +24,7 @@ import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
 import de.unidue.langtech.teaching.rp.detector.OptimaizeLangDetect;
 import de.unidue.langtech.teaching.rp.detector.TikaLanguageIdentifier;
 import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorConfMatrix;
-import de.unidue.langtech.teaching.rp.reader.LIGAEuroParlReader;
-import de.unidue.langtech.teaching.rp.reader.TwitterLIDReader;
+import de.unidue.langtech.teaching.rp.reader.CorpusReader;
 import de.unidue.langtech.teaching.rp.results.ResultStore;
 import de.unidue.langtech.teaching.rp.uimatools.Stopwatch;
 import de.unidue.langtech.teaching.rp.uimatools.Writer;
@@ -43,15 +42,15 @@ public class MainPipeline
 		
     	//TwitterLID Corpus
     	CollectionReaderDescription twitterCorpus = CollectionReaderFactory.createReaderDescription(
-    			TwitterLIDReader.class,
-                TwitterLIDReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.trn"
+    			CorpusReader.class,
+    			CorpusReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.trn"
         );
     	
     	//LIGA Corpus
     	@SuppressWarnings("unused")
 		CollectionReaderDescription ligaCorpus = CollectionReaderFactory.createReaderDescription(
-    			LIGAEuroParlReader.class,
-    			LIGAEuroParlReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 2 - LIGA/corpus_LIGA.txt"
+    			CorpusReader.class,
+    			CorpusReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 2 - LIGA/corpus_LIGA.txt"
         );
     	
         CorpusConfiguration corpus = new CorpusConfiguration(twitterCorpus, "TwitterLID_Training");
