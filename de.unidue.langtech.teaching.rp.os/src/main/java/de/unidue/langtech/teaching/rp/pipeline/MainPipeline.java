@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.collection.CollectionReaderDescription;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
@@ -37,20 +38,28 @@ public class MainPipeline
 	{
 		
 		String web1TBaseDir = new DkproContext().getWorkspace("Web1T").getAbsolutePath();
-//		String twitterlidBaseDir = new DkproContext().getWorkspace("TwitterLID").getAbsolutePath();
-//		String ligaBaseDir = new DkproContext().getWorkspace("LIGA").getAbsolutePath();
+		String twitterlidBaseDir = new DkproContext().getWorkspace("TwitterLID").getAbsolutePath();
+		String ligaBaseDir = new DkproContext().getWorkspace("LIGA").getAbsolutePath();
+		String newsCommentaryBaseDir = new DkproContext().getWorkspace("NewsCommentary").getAbsolutePath();
 		
     	//TwitterLID Corpus
     	CollectionReaderDescription twitterCorpus = CollectionReaderFactory.createReaderDescription(
     			CorpusReader.class,
-    			CorpusReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full.trn"
+    			CorpusReader.PARAM_INPUT_FILE, twitterlidBaseDir + "/ground-truth_full.trn"
         );
     	
     	//LIGA Corpus
     	@SuppressWarnings("unused")
 		CollectionReaderDescription ligaCorpus = CollectionReaderFactory.createReaderDescription(
     			CorpusReader.class,
-    			CorpusReader.PARAM_INPUT_FILE, "D:/_Projekt_Korpora/Corpus 2 - LIGA/corpus_LIGA.txt"
+    			CorpusReader.PARAM_INPUT_FILE, ligaBaseDir + "/corpus_LIGA.txt"
+        );
+    	
+    	//NewsCommentary Corpus
+    	@SuppressWarnings("unused")
+		CollectionReaderDescription newsCorpus = CollectionReaderFactory.createReaderDescription(
+    			CorpusReader.class,
+    			CorpusReader.PARAM_INPUT_FILE, newsCommentaryBaseDir + "/nc-v8_full.txt"
         );
     	
         CorpusConfiguration corpus = new CorpusConfiguration(twitterCorpus, "TwitterLID_Training");
@@ -125,9 +134,9 @@ public class MainPipeline
         		
         		String detectorName = descName.substring(descName.lastIndexOf(".") + 1);
         		
-        		File resultFile = new File("D:/_Projekt_Korpora/temp_results/" + corpus.getCorpusName() + "-" + detectorName + ".txt");
-        		File scoreFile = new File("D:/_Projekt_Korpora/temp_results/" + corpus.getCorpusName() + "-" + detectorName + "_scores.txt");
-        		File timerFile = new File("D:/_Projekt_Korpora/temp_results/" + corpus.getCorpusName() + "-" + detectorName + "_times.txt");
+        		File resultFile = new File("src/main/resources/temp_results/" + corpus.getCorpusName() + "-" + detectorName + ".txt");
+        		File scoreFile = new File("src/main/resources/temp_results/" + corpus.getCorpusName() + "-" + detectorName + "_scores.txt");
+        		File timerFile = new File("src/main/resources/temp_results/" + corpus.getCorpusName() + "-" + detectorName + "_times.txt");
         		
                 SimplePipeline.runPipeline(
                 		corpus.readerDescription,
@@ -153,7 +162,7 @@ public class MainPipeline
         	ResultStore.saveResults(resultFiles, corpus.getCorpusName() + "-");
         	ResultStore.saveScores(scoreFiles, timeFiles, corpus.getCorpusName() + "-");
         	
-//   		   	FileUtils.cleanDirectory(new File("D:/_Projekt_Korpora/temp_results")); TODO: Doesn't work for last file.
+   		   	FileUtils.cleanDirectory(new File("src/main/resources/temp_results"));
         	
         }
 

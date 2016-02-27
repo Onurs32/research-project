@@ -20,8 +20,8 @@ public class DownloadTweets {
 		
 		    String twitterlidBaseDir = new DkproContext().getWorkspace("TwitterLID").getAbsolutePath();
 			
-			File corpus = new File("D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth.tst");
-			File fullCorpus = new File("D:/_Projekt_Korpora/Corpus 1 - Twitter/ground-truth_full_new.tst");
+			File corpus = new File(twitterlidBaseDir + "/ground-truth.trn");
+			File fullCorpus = new File(twitterlidBaseDir + "/ground-truth_full.trn");
 		
 			 if (!(fullCorpus.exists())) {
 				 

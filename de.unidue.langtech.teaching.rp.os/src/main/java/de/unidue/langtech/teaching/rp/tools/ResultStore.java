@@ -85,7 +85,7 @@ public class ResultStore
    	
    			corpusName = corpusName.replace("-", "");
    	
-   			File file = new File("D:/_Projekt_Korpora/" + corpusName + "_results.txt");
+   			File file = new File("src/main/resources/" + corpusName + "_results.txt");
    			PrintStream ps = new PrintStream(file);
    	
    			TextTable tt = new TextTable(columnNames, information); 
@@ -139,7 +139,7 @@ public class ResultStore
    		}    
    		
    	
-   			File file = new File("D:/_Projekt_Korpora/" + corpusName.replace("-", "") + "_scores.txt");
+   			File file = new File("src/main/resources/" + corpusName.replace("-", "") + "_scores.txt");
    			PrintStream ps = new PrintStream(file);
    	
    			TextTable tt = new TextTable(columnNames, information); 
