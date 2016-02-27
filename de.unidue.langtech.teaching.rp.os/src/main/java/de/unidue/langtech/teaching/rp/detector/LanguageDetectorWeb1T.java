@@ -44,7 +44,7 @@ import de.tudarmstadt.ukp.dkpro.core.ngrams.util.NGramStringIterable;
 /**
  * Language detector based on n-gram frequency counts, e.g. as provided by Web1T
  * 
- * @author zesch
+ * @author zesch, Onur
  *
  */
 public class LanguageDetectorWeb1T

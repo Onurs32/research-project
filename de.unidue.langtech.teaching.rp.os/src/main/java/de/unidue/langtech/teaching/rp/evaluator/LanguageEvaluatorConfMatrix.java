@@ -25,10 +25,11 @@ import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
 
 
 /**
- * The evaluator tells us if a tweet instance was correctly classified.
- * It also gives us some details about the classification, for example how many were correctly classified.
+ * Evaluates the baseline results.
+ * Calculates scores (accuracy, precision, recall) for every language.
+ * Can print a confidence matrix for all given languages.
  * 
- * @author suenme
+ * @author Onur
  *
  */
 public class LanguageEvaluatorConfMatrix
@@ -135,6 +136,7 @@ public class LanguageEvaluatorConfMatrix
     {
         super.collectionProcessComplete();
         
+        //http://www.avajava.com/tutorials/lessons/how-do-i-use-numberformat-to-format-a-percent.html
         NumberFormat defaultFormat = NumberFormat.getPercentInstance();
 		defaultFormat.setMinimumFractionDigits(2);
 		
@@ -176,7 +178,6 @@ public class LanguageEvaluatorConfMatrix
     
     /*
      * Based on: http://stackoverflow.com/a/26857286/3677505
-     * @param confMatrix
      */
     public void printConfMatrix(Map <String, Integer> confMatrix) 
     {

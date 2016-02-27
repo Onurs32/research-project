@@ -18,11 +18,10 @@ import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
 
 
 /**
- * Our simple reader that reads the text file which contains generally the tweets, sentiment
- * and the indexes of the tweet parts.
- * and puts each line of the file in a single document.
- * 
- * @author suenme
+ * Reader which can read three corpora: TwitterLID, LIGA & NewsCommentary
+ * LIGA and NewsCommentary have the same format.
+ * TwitterLID additionally contains the status ID for a tweet.
+ * @author Onur
  *
  */
 public class CorpusReader

@@ -30,6 +30,14 @@ import de.unidue.langtech.teaching.rp.tools.ResultStore;
 import de.unidue.langtech.teaching.rp.uimatools.Stopwatch;
 import de.unidue.langtech.teaching.rp.uimatools.Writer;
 
+/**
+ * Pipeline can only run for one corpus. No arrays/list of reader descriptions possible!
+ * Reader descriptions for three corpora are already configured.
+ * Please configure the string array in line 76 according to the languages supported by the corpus.
+ * Also please set the config file for TextCat LanguageIdentifier in lines 129 - 130.
+ * @author Onur
+ *
+ */
 public class MainPipeline 
 {
 

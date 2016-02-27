@@ -27,7 +27,9 @@ import org.apache.uima.jcas.JCas;
 import org.knallgrau.utils.textcat.TextCategorizer;
 
 /**
- * Identifies the language of a document.
+ * LanguageIdentifier wrapped as in DKPro, but with option to choose own config files.
+ * @author Onur
+ *
  */
 public class LanguageIdentifier
 	extends JCasAnnotator_ImplBase

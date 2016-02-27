@@ -11,10 +11,17 @@ import org.apache.commons.io.FileUtils;
 
 import dnl.utils.text.table.TextTable;
 
-
+/**
+ * ResultStore provides two methods for saving tables which contain all results and scores.
+ * 
+ * @author Onur
+ *
+ */
 public class ResultStore 
 {
-	
+	/*
+	 * Save each language detection result which a detector made for a tweet.
+	 */
 	public static void saveResults(List<File> toolFiles, String corpusName) 
 			throws IOException 
 	{
@@ -97,6 +104,9 @@ public class ResultStore
 
 	}
 	
+	/*
+	 * Save all scores for all detectors (precision, recall, accuracy, detection time)
+	 */
 	public static void saveScores(List<File> scoreFiles, List<File> timeFiles, String corpusName) 
 			throws IOException 
 	{

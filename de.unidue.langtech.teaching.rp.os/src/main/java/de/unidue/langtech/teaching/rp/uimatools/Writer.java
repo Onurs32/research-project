@@ -12,6 +12,11 @@ import org.apache.uima.jcas.JCas;
 
 import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
 
+/**
+ * Writes all further needed data to a file.
+ * @author Onur
+ *
+ */
 public class Writer 
 	extends JCasAnnotator_ImplBase
 {

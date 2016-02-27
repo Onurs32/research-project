@@ -13,6 +13,11 @@ import org.apache.uima.resource.ResourceInitializationException;
 
 import me.champeau.ld.UberLanguageDetector;
 
+/**
+ * Wrapper for JLangDetect
+ * @author Onur
+ *
+ */
 public class JLangDetect 
 	extends JCasAnnotator_ImplBase 
 {

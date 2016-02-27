@@ -31,6 +31,10 @@ import de.tudarmstadt.ukp.dkpro.core.io.text.TextReader;
 import de.tudarmstadt.ukp.dkpro.core.io.web1t.Web1TFormatWriter;
 import de.tudarmstadt.ukp.dkpro.core.tokit.BreakIteratorSegmenter;
 
+/**
+ * Web1T converter as in DKPro repository. 
+ *
+ */
 public class Web1TConverter
 {
 

@@ -18,8 +18,8 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 
 /**
- * Identifies the language of a document with Optimaize Language-Detector.
- *
+ * Wrapper for Optimaize
+ * @author Onur
  *
  */
 public class OptimaizeLangDetect 

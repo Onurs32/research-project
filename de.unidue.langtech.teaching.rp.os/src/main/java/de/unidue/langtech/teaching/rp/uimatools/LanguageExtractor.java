@@ -9,6 +9,11 @@ import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
 import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.jcas.JCas;
 
+/**
+ * Used so only the results for a given set of languages can be written to a file.
+ * @author Onur
+ *
+ */
 public class LanguageExtractor 
 	extends JCasAnnotator_ImplBase
 {

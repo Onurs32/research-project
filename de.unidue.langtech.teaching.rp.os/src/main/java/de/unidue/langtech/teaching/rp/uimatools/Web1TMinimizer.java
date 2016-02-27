@@ -7,6 +7,11 @@ import java.io.OutputStreamWriter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 
+/**
+ * Recreate a given Web1T resource, which has a frequency limit.
+ * @author Onur
+ *
+ */
 public class Web1TMinimizer 
 {
 
