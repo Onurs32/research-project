@@ -13,6 +13,7 @@ import de.unidue.langtech.teaching.rp.detector.TikaLanguageIdentifier;
 /**
  * Tests all languages that are present in the three used corpora.
  * Tests are based on LanguageIdentifierTest in the DKPro repository.
+ * Please see if property file in src/main/resources/org/apache/tika/language is set accordingly!
  * @author Onur
  *
  */
@@ -21,8 +22,7 @@ public class TikaLanguageIdentifierTest {
 	String[] languages = new String[] {"de", "en", "fr", "it", "nl", "es"};
 	
 	@Test
-	public
-	void testDutch()
+	public void testDutch()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(TikaLanguageIdentifier.class, createTypeSystemDescription());
@@ -33,8 +33,7 @@ public class TikaLanguageIdentifierTest {
 	}
 	
 	@Test
-	public
-	void testEnglish()
+	public void testEnglish()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(TikaLanguageIdentifier.class, createTypeSystemDescription());
@@ -45,8 +44,7 @@ public class TikaLanguageIdentifierTest {
 	}
 	
 	@Test
-	public
-	void testFrench()
+	public void testFrench()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(TikaLanguageIdentifier.class, createTypeSystemDescription());
@@ -57,8 +55,7 @@ public class TikaLanguageIdentifierTest {
 	}
 
 	@Test
-	public
-	void testGerman()
+	public void testGerman()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(TikaLanguageIdentifier.class, createTypeSystemDescription());
@@ -69,8 +66,7 @@ public class TikaLanguageIdentifierTest {
 	}
 	
 	@Test
-	public
-	void testItalian()
+	public void testItalian()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(TikaLanguageIdentifier.class, createTypeSystemDescription());
@@ -81,8 +77,7 @@ public class TikaLanguageIdentifierTest {
 	}
 	
 	@Test
-	public
-	void testSpanish()
+	public void testSpanish()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(TikaLanguageIdentifier.class, createTypeSystemDescription());

@@ -12,6 +12,7 @@ import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
 /**
  * Tests all languages that are present in the three used corpora.
  * Tests are based on LanguageIdentifierTest in the DKPro repository.
+ * Config file for all languages which are used here is already set.
  * @author Onur
  *
  */
@@ -21,8 +22,7 @@ public class LanguageIdentifierTest {
 	String ligaModel = "src/main/resources/textcat_models/textcat_liga.conf";
 	
 	@Test
-	public
-	void testDutch()
+	public void testDutch()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(LanguageIdentifier.class,
@@ -34,8 +34,7 @@ public class LanguageIdentifierTest {
 	}
 	
 	@Test
-	public
-	void testEnglish()
+	public void testEnglish()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(LanguageIdentifier.class,
@@ -47,8 +46,7 @@ public class LanguageIdentifierTest {
 	}
 	
 	@Test
-	public
-	void testFrench()
+	public void testFrench()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(LanguageIdentifier.class,
@@ -60,8 +58,7 @@ public class LanguageIdentifierTest {
 	}
 
 	@Test
-	public
-	void testGerman()
+	public void testGerman()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(LanguageIdentifier.class,
@@ -73,8 +70,7 @@ public class LanguageIdentifierTest {
 	}
 	
 	@Test
-	public
-	void testItalian()
+	public void testItalian()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(LanguageIdentifier.class,
@@ -86,8 +82,7 @@ public class LanguageIdentifierTest {
 	}
 	
 	@Test
-	public
-	void testSpanish()
+	public void testSpanish()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(LanguageIdentifier.class,

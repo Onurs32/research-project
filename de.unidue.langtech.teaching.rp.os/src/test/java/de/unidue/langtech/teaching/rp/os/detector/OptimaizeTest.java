@@ -20,8 +20,7 @@ public class OptimaizeTest {
 	String[] languages = new String[] {"de", "en", "fr", "it", "nl", "es"};
 	
 	@Test
-	public
-	void testDutch()
+	public void testDutch()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(Optimaize.class, 
@@ -33,8 +32,7 @@ public class OptimaizeTest {
 	}
 	
 	@Test
-	public
-	void testEnglish()
+	public void testEnglish()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(Optimaize.class, 
@@ -46,8 +44,7 @@ public class OptimaizeTest {
 	}
 	
 	@Test
-	public
-	void testFrench()
+	public void testFrench()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(Optimaize.class, 
@@ -59,8 +56,7 @@ public class OptimaizeTest {
 	}
 
 	@Test
-	public
-	void testGerman()
+	public void testGerman()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(Optimaize.class, 
@@ -72,8 +68,7 @@ public class OptimaizeTest {
 	}
 	
 	@Test
-	public
-	void testItalian()
+	public void testItalian()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(Optimaize.class, 
@@ -85,8 +80,7 @@ public class OptimaizeTest {
 	}
 	
 	@Test
-	public
-	void testSpanish()
+	public void testSpanish()
 	throws Exception
 	{
 		AnalysisEngine ae = createEngine(Optimaize.class, 
