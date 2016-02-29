@@ -32,7 +32,7 @@ import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
  * @author Onur
  *
  */
-public class LanguageEvaluatorConfMatrix
+public class LanguageEvaluator
     extends JCasAnnotator_ImplBase
 {
 	
@@ -179,7 +179,7 @@ public class LanguageEvaluatorConfMatrix
     /*
      * Based on: http://stackoverflow.com/a/26857286/3677505
      */
-    public void printConfMatrix(Map <String, Integer> confMatrix) 
+    private void printConfMatrix(Map <String, Integer> confMatrix) 
     {
     	
     	Set<String> classNames = new HashSet<String>();

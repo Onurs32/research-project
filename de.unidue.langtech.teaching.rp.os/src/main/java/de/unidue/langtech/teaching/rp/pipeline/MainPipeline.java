@@ -24,7 +24,7 @@ import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1T;
 import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
 import de.unidue.langtech.teaching.rp.detector.Optimaize;
 import de.unidue.langtech.teaching.rp.detector.TikaLanguageIdentifier;
-import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorConfMatrix;
+import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluator;
 import de.unidue.langtech.teaching.rp.reader.CorpusReader;
 import de.unidue.langtech.teaching.rp.tools.ResultStore;
 import de.unidue.langtech.teaching.rp.uimatools.Stopwatch;
@@ -160,9 +160,9 @@ public class MainPipeline
 						AnalysisEngineFactory.createEngineDescription(Stopwatch.class,
 								Stopwatch.PARAM_TIMER_NAME, "t1",
 								Stopwatch.PARAM_OUTPUT_FILE, timerFile),
-						AnalysisEngineFactory.createEngineDescription(LanguageEvaluatorConfMatrix.class,
-								LanguageEvaluatorConfMatrix.PARAM_LANGUAGES, languages,
-								LanguageEvaluatorConfMatrix.PARAM_SCORE_FILE, scoreFile),
+						AnalysisEngineFactory.createEngineDescription(LanguageEvaluator.class,
+								LanguageEvaluator.PARAM_LANGUAGES, languages,
+								LanguageEvaluator.PARAM_SCORE_FILE, scoreFile),
 						AnalysisEngineFactory.createEngineDescription(Writer.class,
 								Writer.PARAM_RESULT_FILE, resultFile));
                 
