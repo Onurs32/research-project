@@ -22,7 +22,7 @@ import org.apache.uima.resource.ResourceInitializationException;
  * @author Onur
  *
  */
-public class OptimaizeLangDetect 
+public class Optimaize 
 	extends JCasAnnotator_ImplBase 
 {
 	
@@ -30,7 +30,7 @@ public class OptimaizeLangDetect
      * Languages that should be considered. 
      */
     public static final String PARAM_LANGUAGES = "languages";
-    @ConfigurationParameter(name = PARAM_LANGUAGES, mandatory = false)
+    @ConfigurationParameter(name = PARAM_LANGUAGES, mandatory = true)
     private static String[] languages;
     
     private LanguageDetector languageDetector;
@@ -77,7 +77,7 @@ public class OptimaizeLangDetect
         LanguageDetectorBuilder builder = LanguageDetectorBuilder.create(NgramExtractors.standard());
         LanguageProfileReader langProfileReader = new LanguageProfileReader();
         for (String language : languages) {
-            LanguageProfile languageProfile = langProfileReader.read(OptimaizeLangDetect.class.getResourceAsStream("/languages/" + language));
+            LanguageProfile languageProfile = langProfileReader.read(Optimaize.class.getResourceAsStream("/languages/" + language));
             builder.withProfile(languageProfile);
         }
 

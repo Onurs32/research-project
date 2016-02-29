@@ -22,7 +22,7 @@ import de.tudarmstadt.ukp.dkpro.core.frequency.resources.Web1TFrequencyCountReso
 import de.unidue.langtech.teaching.rp.detector.JLangDetect;
 import de.unidue.langtech.teaching.rp.detector.LanguageDetectorWeb1T;
 import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
-import de.unidue.langtech.teaching.rp.detector.OptimaizeLangDetect;
+import de.unidue.langtech.teaching.rp.detector.Optimaize;
 import de.unidue.langtech.teaching.rp.detector.TikaLanguageIdentifier;
 import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorConfMatrix;
 import de.unidue.langtech.teaching.rp.reader.CorpusReader;
@@ -34,7 +34,9 @@ import de.unidue.langtech.teaching.rp.uimatools.Writer;
  * Pipeline can only run for one corpus. No arrays/list of reader descriptions possible!
  * Reader descriptions for three corpora are already configured.
  * Please configure the string array in line 76 according to the languages supported by the corpus.
- * Also please set the config file for TextCat LanguageIdentifier in lines 129 - 130.
+ * Also please set the config file for TextCat LanguageIdentifier in lines 132 - 133.
+ * TikaLanguageIdentifier can only load one config property file! So please edit the property file
+ * in src/main/resources/org/apache/tika/language accordingly!
  * @author Onur
  *
  */
@@ -126,11 +128,14 @@ public class MainPipeline
                  )
             ));
         
-        description.add(createEngineDescription(LanguageIdentifier.class,
-                		LanguageIdentifier.PARAM_CONFIG_FILE, "src/main/resources/textcat_models/textcat_tweetlid.conf"));
+        String twitterLIDModel = "src/main/resources/textcat_models/textcat_tweetlid.conf";
+        //String ligaModel = "src/main/resources/textcat_models/textcat_liga.conf";
         
-        description.add(createEngineDescription(OptimaizeLangDetect.class,
-                		OptimaizeLangDetect.PARAM_LANGUAGES, languages));
+        description.add(createEngineDescription(LanguageIdentifier.class,
+                		LanguageIdentifier.PARAM_CONFIG_FILE, twitterLIDModel));
+        
+        description.add(createEngineDescription(Optimaize.class,
+                		Optimaize.PARAM_LANGUAGES, languages));
         
         description.add(createEngineDescription(TikaLanguageIdentifier.class));
         

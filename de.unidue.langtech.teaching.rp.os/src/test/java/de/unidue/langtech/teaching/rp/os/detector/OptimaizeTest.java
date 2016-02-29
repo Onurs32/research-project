@@ -7,7 +7,7 @@ import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.jcas.JCas;
 import org.junit.Test;
 
-import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
+import de.unidue.langtech.teaching.rp.detector.Optimaize;
 
 /**
  * Tests all languages that are present in the three used corpora.
@@ -15,18 +15,17 @@ import de.unidue.langtech.teaching.rp.detector.LanguageIdentifier;
  * @author Onur
  *
  */
-public class LanguageIdentifierTest {
+public class OptimaizeTest {
 	
 	String[] languages = new String[] {"de", "en", "fr", "it", "nl", "es"};
-	String ligaModel = "src/main/resources/textcat_models/textcat_liga.conf";
 	
 	@Test
 	public
 	void testDutch()
 	throws Exception
 	{
-		AnalysisEngine ae = createEngine(LanguageIdentifier.class,
-        		LanguageIdentifier.PARAM_CONFIG_FILE, ligaModel);
+		AnalysisEngine ae = createEngine(Optimaize.class, 
+				Optimaize.PARAM_LANGUAGES, languages);
 		JCas aJCas = ae.newJCas();
 		aJCas.setDocumentText("Dit is een nederlandse documentaire.");
 		ae.process(aJCas);
@@ -38,8 +37,8 @@ public class LanguageIdentifierTest {
 	void testEnglish()
 	throws Exception
 	{
-		AnalysisEngine ae = createEngine(LanguageIdentifier.class,
-        		LanguageIdentifier.PARAM_CONFIG_FILE, ligaModel);
+		AnalysisEngine ae = createEngine(Optimaize.class, 
+				Optimaize.PARAM_LANGUAGES, languages);
 		JCas aJCas = ae.newJCas();
 		aJCas.setDocumentText("This is an english file.");
 		ae.process(aJCas);
@@ -51,8 +50,8 @@ public class LanguageIdentifierTest {
 	void testFrench()
 	throws Exception
 	{
-		AnalysisEngine ae = createEngine(LanguageIdentifier.class,
-        		LanguageIdentifier.PARAM_CONFIG_FILE, ligaModel);
+		AnalysisEngine ae = createEngine(Optimaize.class, 
+				Optimaize.PARAM_LANGUAGES, languages);
 		JCas aJCas = ae.newJCas();
 		aJCas.setDocumentText("C'est un document français.");
 		ae.process(aJCas);
@@ -64,8 +63,8 @@ public class LanguageIdentifierTest {
 	void testGerman()
 	throws Exception
 	{
-		AnalysisEngine ae = createEngine(LanguageIdentifier.class,
-        		LanguageIdentifier.PARAM_CONFIG_FILE, ligaModel);
+		AnalysisEngine ae = createEngine(Optimaize.class, 
+				Optimaize.PARAM_LANGUAGES, languages);
 		JCas aJCas = ae.newJCas();
 		aJCas.setDocumentText("Das ist ein deutsches Dokument.");
 		ae.process(aJCas);
@@ -77,8 +76,8 @@ public class LanguageIdentifierTest {
 	void testItalian()
 	throws Exception
 	{
-		AnalysisEngine ae = createEngine(LanguageIdentifier.class,
-        		LanguageIdentifier.PARAM_CONFIG_FILE, ligaModel);
+		AnalysisEngine ae = createEngine(Optimaize.class, 
+				Optimaize.PARAM_LANGUAGES, languages);
 		JCas aJCas = ae.newJCas();
 		aJCas.setDocumentText("Questo è un documentario italiano.");
 		ae.process(aJCas);
@@ -90,8 +89,8 @@ public class LanguageIdentifierTest {
 	void testSpanish()
 	throws Exception
 	{
-		AnalysisEngine ae = createEngine(LanguageIdentifier.class,
-        		LanguageIdentifier.PARAM_CONFIG_FILE, ligaModel);
+		AnalysisEngine ae = createEngine(Optimaize.class, 
+				Optimaize.PARAM_LANGUAGES, languages);
 		JCas aJCas = ae.newJCas();
 		aJCas.setDocumentText("Este es un documental español.");
 		ae.process(aJCas);
