@@ -52,20 +52,20 @@ public class MainPipeline
 		String ligaBaseDir = new DkproContext().getWorkspace("LIGA").getAbsolutePath();
 		String newsCommentaryBaseDir = new DkproContext().getWorkspace("NewsCommentary").getAbsolutePath();
 		
-    	//TwitterLID Corpus
+    	//TwitterLID Corpus, Languages: de, en, fr, nl, es
     	CollectionReaderDescription twitterCorpus = CollectionReaderFactory.createReaderDescription(
     			CorpusReader.class,
     			CorpusReader.PARAM_INPUT_FILE, twitterlidBaseDir + "/ground-truth_full.trn"
         );
     	
-    	//LIGA Corpus
+    	//LIGA Corpus, Languages: de, en, fr, it, nl, es
     	@SuppressWarnings("unused")
 		CollectionReaderDescription ligaCorpus = CollectionReaderFactory.createReaderDescription(
     			CorpusReader.class,
     			CorpusReader.PARAM_INPUT_FILE, ligaBaseDir + "/corpus_LIGA.txt"
         );
     	
-    	//NewsCommentary Corpus
+    	//NewsCommentary Corpus, Languages: de, en, fr, es
     	@SuppressWarnings("unused")
 		CollectionReaderDescription newsCorpus = CollectionReaderFactory.createReaderDescription(
     			CorpusReader.class,
