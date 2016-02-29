@@ -144,8 +144,9 @@ public class LanguageDetectorWeb1T
             	maxLanguage = "x-unspecified";
             }
             
-//            Map<String, Double> langProbabilities = getCertainty(langProbs);
-//            
+//          Map<String, Double> langProbabilities = getCertainty(langProbs);
+//          
+            //http://www.avajava.com/tutorials/lessons/how-do-i-use-numberformat-to-format-a-percent.html
 //          NumberFormat defaultFormat = NumberFormat.getPercentInstance();
 //    		defaultFormat.setMinimumFractionDigits(2);
 //    		
