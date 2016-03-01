@@ -21,7 +21,7 @@ import de.unidue.langtech.teaching.rp.reader.CorpusReader;
 public class EvaluatorTest {
 	
 	/**
-	 * Test if accuracy, precision & recall are correctly calculated.
+	 * Test if accuracy, precision & recall are correctly calculated and written to a scorefile.
 	 * @throws Exception
 	 */
 	@Test
