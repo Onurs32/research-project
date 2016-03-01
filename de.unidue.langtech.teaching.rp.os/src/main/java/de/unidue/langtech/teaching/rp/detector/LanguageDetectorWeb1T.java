@@ -144,6 +144,7 @@ public class LanguageDetectorWeb1T
             	maxLanguage = "x-unspecified";
             }
             
+//			Uncomment if getCertainty is used.      
 //          Map<String, Double> langProbabilities = getCertainty(langProbs);
 //          
             //http://www.avajava.com/tutorials/lessons/how-do-i-use-numberformat-to-format-a-percent.html
@@ -264,6 +265,10 @@ public class LanguageDetectorWeb1T
     	
     }
     
+    /*
+     * Detect language probability for each single word
+     * Unused because of worse performance
+     */
     @SuppressWarnings("unused")
 	private Map<String,Double> getSingleLanguageProbabilities(List<String> ngrams, boolean multipleMaximums)
             throws Exception
@@ -321,6 +326,11 @@ public class LanguageDetectorWeb1T
         return textLogProbability;
     }
     
+    /*
+     * Used in getSingleLanguageProbabilities() 
+     * Sums of probability for each word for every language
+     * Unused because of worse performance
+     */
     private void setTextProbability(TreeMap<Double,String> langProbs, Map<String,Double> textLogProbability) 
     {
     	
@@ -336,7 +346,12 @@ public class LanguageDetectorWeb1T
     	
     }
     
-    
+    /*
+     * Used after method getSingleLanguageProbabilities()
+     * Detects if two or more language have the same probability after probabilities for each words are summed up
+     * If this is the case, getLanguageProbabilities() should be used
+     * Unused because makes no sense without usage of getSingleLanguageProbabilities()
+     */
     @SuppressWarnings("unused")
 	private boolean hasDuplicates(Map<String, Double> map)
     {

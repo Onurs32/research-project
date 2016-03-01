@@ -32,6 +32,7 @@ import de.unidue.langtech.teaching.rp.uimatools.Writer;
 
 /**
  * Pipeline can only run for one corpus. No arrays/list of reader descriptions possible!
+ * Reason: Each corpora needs a different set of configuration files, languages, models.
  * Reader descriptions for three corpora are already configured.
  * Please configure the string array in line 76 according to the languages supported by the corpus.
  * Also please set the config file for TextCat LanguageIdentifier in lines 132 - 133.
@@ -51,6 +52,7 @@ public class MainPipeline
 		String twitterlidBaseDir = new DkproContext().getWorkspace("TwitterLID").getAbsolutePath();
 		String ligaBaseDir = new DkproContext().getWorkspace("LIGA").getAbsolutePath();
 		String newsCommentaryBaseDir = new DkproContext().getWorkspace("NewsCommentary").getAbsolutePath();
+		String textCatModelsBaseDir = new DkproContext().getWorkspace("textcat_models").getAbsolutePath();
 		
     	//TwitterLID Corpus, Languages: de, en, fr, nl, es
     	CollectionReaderDescription twitterCorpus = CollectionReaderFactory.createReaderDescription(
@@ -124,12 +126,19 @@ public class MainPipeline
                                 Web1TFrequencyCountResource.PARAM_MIN_NGRAM_LEVEL, "1",
                                 Web1TFrequencyCountResource.PARAM_MAX_NGRAM_LEVEL, "1",
                                 Web1TFrequencyCountResource.PARAM_LANGUAGE, "es"
-                        )
+                        )//,
+//                        createExternalResourceDescription(
+//                                Web1TFrequencyCountResource.class,
+//                                Web1TFrequencyCountResource.PARAM_INDEX_PATH, web1TBaseDir + "/Euro/it",
+//                                Web1TFrequencyCountResource.PARAM_MIN_NGRAM_LEVEL, "1",
+//                                Web1TFrequencyCountResource.PARAM_MAX_NGRAM_LEVEL, "1",
+//                                Web1TFrequencyCountResource.PARAM_LANGUAGE, "it"
+//                        )
                  )
             ));
         
-        String twitterLIDModel = "src/main/resources/textcat_models/textcat_tweetlid.conf";
-        //String ligaModel = "src/main/resources/textcat_models/textcat_liga.conf";
+        String twitterLIDModel = textCatModelsBaseDir + "/textcat_tweetlid.conf";
+        //String ligaModel = textCatModelsBaseDir + "/textcat_liga.conf";
         
         description.add(createEngineDescription(LanguageIdentifier.class,
                 		LanguageIdentifier.PARAM_CONFIG_FILE, twitterLIDModel));
@@ -139,7 +148,7 @@ public class MainPipeline
         
         description.add(createEngineDescription(TikaLanguageIdentifier.class));
         
-
+		String tempResultsDirectory = "src/main/resources/temp_results/";
        
         	for (AnalysisEngineDescription desc : description) {
         		
@@ -147,9 +156,9 @@ public class MainPipeline
         		
         		String detectorName = descName.substring(descName.lastIndexOf(".") + 1);
         		
-        		File resultFile = new File("src/main/resources/temp_results/" + corpus.getCorpusName() + "-" + detectorName + ".txt");
-        		File scoreFile = new File("src/main/resources/temp_results/" + corpus.getCorpusName() + "-" + detectorName + "_scores.txt");
-        		File timerFile = new File("src/main/resources/temp_results/" + corpus.getCorpusName() + "-" + detectorName + "_times.txt");
+        		File resultFile = new File(tempResultsDirectory + corpus.getCorpusName() + "-" + detectorName + ".txt");
+        		File scoreFile = new File(tempResultsDirectory + corpus.getCorpusName() + "-" + detectorName + "_scores.txt");
+        		File timerFile = new File(tempResultsDirectory + corpus.getCorpusName() + "-" + detectorName + "_times.txt");
         		
                 SimplePipeline.runPipeline(
                 		corpus.readerDescription,
@@ -175,7 +184,7 @@ public class MainPipeline
         	ResultStore.saveResults(resultFiles, corpus.getCorpusName() + "-");
         	ResultStore.saveScores(scoreFiles, timeFiles, corpus.getCorpusName() + "-");
         	
-   		   	FileUtils.cleanDirectory(new File("src/main/resources/temp_results"));
+   		   	FileUtils.cleanDirectory(new File(tempResultsDirectory)); //WARNING: Does not work occasionally. Reason unknown.
         	
         }
 
