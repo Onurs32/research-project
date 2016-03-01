@@ -1,0 +1,3 @@
+Dies ist kein deutscher Text.	en
+Dies ist wohl ein deutscher Text.	de
+This is a document in english language.	en
