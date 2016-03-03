@@ -67,13 +67,6 @@ public class MainPipeline
     			CorpusReader.PARAM_INPUT_FILE, ligaBaseDir + "/corpus_LIGA.txt"
         );
     	
-    	//NewsCommentary Corpus, Languages: de, en, fr, es
-    	@SuppressWarnings("unused")
-		CollectionReaderDescription newsCorpus = CollectionReaderFactory.createReaderDescription(
-    			CorpusReader.class,
-    			CorpusReader.PARAM_INPUT_FILE, newsCommentaryBaseDir + "/nc-v8_full.txt"
-        );
-    	
         CorpusConfiguration corpus = new CorpusConfiguration(twitterCorpus, "TwitterLID_Training");
                 
         
