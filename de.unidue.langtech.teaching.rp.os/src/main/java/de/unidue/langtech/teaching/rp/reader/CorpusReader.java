@@ -18,9 +18,9 @@ import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
 
 
 /**
- * Reader which can read three corpora: TwitterLID, LIGA & NewsCommentary
- * LIGA and NewsCommentary have the same format.
- * TwitterLID additionally contains the status ID for a tweet.
+ * Reader which can read two corpora: TwitterLID, LIGA
+ * Format for TwitterLID: SID, TWEET, LANGUAGE
+ * Format for LIGA: TWEET, LANGUAGE
  * @author Onur
  *
  */
