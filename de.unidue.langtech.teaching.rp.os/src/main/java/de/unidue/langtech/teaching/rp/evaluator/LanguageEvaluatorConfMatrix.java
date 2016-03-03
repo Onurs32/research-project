@@ -32,7 +32,7 @@ import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
  * @author Onur
  *
  */
-public class LanguageEvaluator
+public class LanguageEvaluatorConfMatrix
     extends JCasAnnotator_ImplBase
 {
 	

@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import de.tudarmstadt.ukp.dkpro.core.tokit.BreakIteratorSegmenter;
 import de.unidue.langtech.teaching.rp.detector.JLangDetect;
-import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluator;
+import de.unidue.langtech.teaching.rp.evaluator.LanguageEvaluatorConfMatrix;
 import de.unidue.langtech.teaching.rp.reader.CorpusReader;
 
 public class EvaluatorTest {
@@ -41,9 +41,9 @@ public class EvaluatorTest {
 		
 		File testScoreFile = new File("src/test/resources/testScoreFile.txt");
 		
-		AnalysisEngineDescription evaluator = AnalysisEngineFactory.createEngineDescription(LanguageEvaluator.class,
-				LanguageEvaluator.PARAM_LANGUAGES, languages,
-				LanguageEvaluator.PARAM_SCORE_FILE, testScoreFile
+		AnalysisEngineDescription evaluator = AnalysisEngineFactory.createEngineDescription(LanguageEvaluatorConfMatrix.class,
+				LanguageEvaluatorConfMatrix.PARAM_LANGUAGES, languages,
+				LanguageEvaluatorConfMatrix.PARAM_SCORE_FILE, testScoreFile
 		);
 		
 		SimplePipeline.runPipeline(
