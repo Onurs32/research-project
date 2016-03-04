@@ -181,5 +181,78 @@ public class ResultStore
    		   	}   	  	
 
 	}
+	
+	/*
+	 * Save only accuracy for all detectors
+	 */
+	public static void saveScoresOld(List<File> scoreFiles, List<File> timeFiles, String corpusName) 
+			throws IOException 
+	{
+		
+	List <String> temp = FileUtils.readLines(scoreFiles.get(0));
+	int rowLength = temp.size();
+		
+
+   	String[] columnNames = new String[scoreFiles.size()+1];
+   	String [][] information = new String[rowLength+1][scoreFiles.size()+1]; 
+
+   	for (int i = 0; i < scoreFiles.size(); i++) {
+		
+   		   List <String> toolInformation = FileUtils.readLines(scoreFiles.get(i));
+           
+           List<String> scores = new ArrayList<String>();
+           
+           //dump line for notation
+           
+           scores.add("ACCURACY");
+           
+           for (String toolInfo : toolInformation) {
+        	   String[] parts = toolInfo.split("\t");
+        	   scores.add(parts[0]);
+           }
+           
+       	String toolScoreName = scoreFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_scores", "");;
+           
+           columnNames[i] = toolScoreName;  
+           
+           //fill arrays with information         
+           for(int row=0;row < scores.size(); row++){
+               information[row][i] = scores.get(row);
+           }
+   		}    
+   		
+   	
+   			File file = new File("src/main/resources/" + corpusName.replace("-", "") + "_scores.txt");
+   			PrintStream ps = new PrintStream(file);
+   	
+   			TextTable tt = new TextTable(columnNames, information); 
+   			tt.printTable(ps, 0);
+   			
+	        List<String> times = new ArrayList<String>();
+   			
+   		   	for (int i = 0; i < timeFiles.size(); i++) {
+   		   		
+   	            List<String> timeInformation = FileUtils.readLines(timeFiles.get(i));
+   	        	String toolTimeName = timeFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_times", "");
+   	        	
+   	           for (String timeInfo : timeInformation) {
+   	        	   
+   	        	   if (timeInfo.startsWith("sum")) {
+   	        		   String[] parts = timeInfo.split("=");
+   	        		   String timeString = parts[1];
+   	        		   double time = Double.parseDouble(timeString);
+   	        		   
+   	        		   //source: http://alvinalexander.com/java/java-decimalformat-example-numberformat
+   	        		   DecimalFormat tf = new DecimalFormat("#.##");
+   	        		   times.add(tf.format(time));
+   	        	   }
+   	        	   
+   	           }
+   	           
+   	        FileUtils.writeStringToFile(file, "\nTime for " + toolTimeName + ": " + times.get(i) + " s", true);
+   	              		
+   		   	}   	  	
+
+	}
 
 }
