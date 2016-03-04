@@ -51,7 +51,6 @@ public class MainPipeline
 		String web1TBaseDir = new DkproContext().getWorkspace("Web1T").getAbsolutePath();
 		String twitterlidBaseDir = new DkproContext().getWorkspace("TwitterLID").getAbsolutePath();
 		String ligaBaseDir = new DkproContext().getWorkspace("LIGA").getAbsolutePath();
-		String newsCommentaryBaseDir = new DkproContext().getWorkspace("NewsCommentary").getAbsolutePath();
 		String textCatModelsBaseDir = new DkproContext().getWorkspace("textcat_models").getAbsolutePath();
 		
     	//TwitterLID Corpus, Languages: de, en, fr, nl, es
