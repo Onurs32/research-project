@@ -21,16 +21,18 @@ import de.unidue.langtech.teaching.rp.reader.CorpusReader;
 public class EvaluatorTest {
 	
 	/**
-	 * Test if accuracy, precision & recall are correctly calculated and written to a scorefile.
+	 * Test if precision & recall are correctly calculated and written to a scorefile.
 	 * @throws Exception
 	 */
 	@Test
 	public void testEvaluator() throws Exception
     {
 		
+		File readerFile = new File("src/test/resources/evaluatorTest.txt");
+		
     	CollectionReaderDescription reader = CollectionReaderFactory.createReaderDescription(
     			CorpusReader.class,
-    			CorpusReader.PARAM_INPUT_FILE, "src/test/resources/evaluatorTest.txt"
+    			CorpusReader.PARAM_INPUT_FILE, readerFile
         );
     	
     	String[] languages = new String[] {"de"};
@@ -54,21 +56,20 @@ public class EvaluatorTest {
 		);
 		
     	double tp = 1.0;
-    	double tn = 0.0;
+    	//double tn = 0.0;
     	double fp = 2.0;
     	double fn = 0.0;
     	
-		double accuracy = (tp + tn) / (tp + tn + fp + fn);
 		double precision = tp / (tp + fp);
 		double recall = tp / (tp + fn);
 		
 		NumberFormat defaultFormat = NumberFormat.getPercentInstance();
 		defaultFormat.setMinimumFractionDigits(2);
 		
-		String resultGerman = "de" + "\t" + defaultFormat.format(accuracy) + "___" + defaultFormat.format(precision) + "___" + defaultFormat.format(recall);
+		String resultGerman = "de" + "\t" + defaultFormat.format(precision) + "___" + defaultFormat.format(recall);
+		String resultLine = FileUtils.readLines(testScoreFile).get(0);
 		
-		assertEquals(FileUtils.readLines(testScoreFile).get(0),
-				resultGerman);
+		assertEquals(resultLine, resultGerman);
 		
 		testScoreFile.delete();
 		
