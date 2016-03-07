@@ -105,7 +105,7 @@ public class ResultStore
 	}
 	
 	/*
-	 * Save all scores for all detectors (precision, recall, accuracy, detection time)
+	 * Save all scores for all detectors (precision (= accuracy) & recall for every language, overall accuracy, detection time)
 	 */
 	public static void saveScores(List<File> scoreFiles, List<File> timeFiles, String corpusName) 
 			throws IOException 
@@ -116,11 +116,12 @@ public class ResultStore
 		
 
    	String[] columnNames = new String[scoreFiles.size()+1];
-   	String [][] information = new String[rowLength+1][scoreFiles.size()+1]; 
+   	String [][] information = new String[rowLength+2][scoreFiles.size()+1]; 
 
    	for (int i = 0; i < scoreFiles.size(); i++) {
 		
    		   List <String> toolInformation = FileUtils.readLines(scoreFiles.get(i));
+   		   List<String> timeInformation = FileUtils.readLines(timeFiles.get(i));
            
            List<String> languages = new ArrayList<String>();
            List<String> scores = new ArrayList<String>();
@@ -128,40 +129,23 @@ public class ResultStore
            //dump line for notation
            
            languages.add("");
-           scores.add("ACCURACY__PRECISION__RECALL");
+           scores.add("PRECISION__RECALL");
            
            for (String toolInfo : toolInformation) {
+        	   
         	   String[] parts = toolInfo.split("\t");
         	   languages.add(parts[0]);
         	   scores.add(parts[1]);
+        	   
            }
            
-       	String toolScoreName = scoreFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_scores", "");;
+           languages.add("TIME");
+           
+       	   String toolScoreName = scoreFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_scores", "");;
            
            columnNames[0] = "Language";
            columnNames[i+1] = toolScoreName;  
            
-           //fill arrays with information         
-           for(int row=0;row < languages.size(); row++){
-               information[row][0] = languages.get(row);
-               information[row][i+1] = scores.get(row);
-           }
-   		}    
-   		
-   	
-   			File file = new File("src/main/resources/" + corpusName.replace("-", "") + "_scores.txt");
-   			PrintStream ps = new PrintStream(file);
-   	
-   			TextTable tt = new TextTable(columnNames, information); 
-   			tt.printTable(ps, 0);
-   			
-	        List<String> times = new ArrayList<String>();
-   			
-   		   	for (int i = 0; i < timeFiles.size(); i++) {
-   		   		
-   	            List<String> timeInformation = FileUtils.readLines(timeFiles.get(i));
-   	        	String toolTimeName = timeFiles.get(i).getName().replace(corpusName, "").replace(".txt", "").replace("_times", "");
-   	        	
    	           for (String timeInfo : timeInformation) {
    	        	   
    	        	   if (timeInfo.startsWith("sum")) {
@@ -171,14 +155,27 @@ public class ResultStore
    	        		   
    	        		   //source: http://alvinalexander.com/java/java-decimalformat-example-numberformat
    	        		   DecimalFormat tf = new DecimalFormat("#.##");
-   	        		   times.add(tf.format(time));
+   	        		   scores.add(tf.format(time) + " s");
    	        	   }
    	        	   
    	           }
    	           
-   	        FileUtils.writeStringToFile(file, "\nTime for " + toolTimeName + ": " + times.get(i) + " s", true);
-   	              		
-   		   	}   	  	
+   	           //fill arrays with information         
+   	           for(int row = 0; row < languages.size(); row++){
+   	        	   
+   	               information[row][0] = languages.get(row);
+   	               information[row][i+1] = scores.get(row);
+   	               
+   	           }
+   	           
+   		}    
+   		
+   	
+   			File file = new File("src/main/resources/" + corpusName.replace("-", "") + "_scores.txt");
+   			PrintStream ps = new PrintStream(file);
+   	
+   			TextTable tt = new TextTable(columnNames, information); 
+   			tt.printTable(ps, 0);
 
 	}
 	

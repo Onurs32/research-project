@@ -176,7 +176,8 @@ public class MainPipeline
         	ResultStore.saveResults(resultFiles, corpus.getCorpusName() + "-");
         	ResultStore.saveScores(scoreFiles, timeFiles, corpus.getCorpusName() + "-");
         	
-   		   	FileUtils.cleanDirectory(new File(tempResultsDirectory)); //WARNING: Does not work occasionally. Reason unknown.
+   		   	FileUtils.cleanDirectory(new File(tempResultsDirectory)); //WARNING: Does not work occasionally. Reason unknown.      	
+
         	
         }
 

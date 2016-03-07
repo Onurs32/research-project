@@ -47,7 +47,8 @@ public class LanguageEvaluatorConfMatrix
     @ConfigurationParameter(name = PARAM_SCORE_FILE, mandatory = true)
     private File scoreFile;
 
-
+    private double correct;
+    private double nrOfDocuments;
 
 	private static  HashMap<String, List<Double>> languageMaps;
 	
@@ -70,6 +71,9 @@ public class LanguageEvaluatorConfMatrix
         	
         	languageMaps.put(languages[i], Arrays.asList(values));
         }
+        
+        correct = 0;
+        nrOfDocuments = 0;
  
     }
     
@@ -77,10 +81,15 @@ public class LanguageEvaluatorConfMatrix
     public void process(JCas jcas)
         throws AnalysisEngineProcessException
     {
+    	nrOfDocuments++; 
         
         OriginalLanguage actual = JCasUtil.selectSingle(jcas, OriginalLanguage.class);
         String actualLanguage = actual.getLanguage();
         String detectedLanguage = jcas.getDocumentLanguage();
+        
+        if (actualLanguage.equals(detectedLanguage)) {
+        	correct++;
+        }
         
         System.out.println(jcas.getDocumentText());
         System.out.println(actualLanguage + " detected as " + detectedLanguage);
@@ -140,6 +149,8 @@ public class LanguageEvaluatorConfMatrix
         NumberFormat defaultFormat = NumberFormat.getPercentInstance();
 		defaultFormat.setMinimumFractionDigits(2);
 		
+		String accuracyFormatted = defaultFormat.format(correct/nrOfDocuments);
+		
 		System.out.println("\n--------------------------------------------------------------------------" + "\n\nScores for each language\n\n");
 		
 		for (int i = 0; i < languages.length; i++) {
@@ -147,30 +158,33 @@ public class LanguageEvaluatorConfMatrix
         	List <Double> values = languageMaps.get(languages[i]);
         	
         	double tp = values.get(0);
-        	double tn = values.get(1);
+        	//double tn = values.get(1);
         	double fp = values.get(2);
         	double fn = values.get(3);
         	
         	//source: https://github.com/dkpro/dkpro-csniper/blob/master/csniper-ml/src/main/java/de/tudarmstadt/ukp/csniper/ml/TKSVMlightResultConsumer.java
         	
-    		double accuracy = (tp + tn) / (tp + tn + fp + fn);
     		double precision = tp / (tp + fp);
     		double recall = tp / (tp + fn);
     		
-    		String accuracyFormatted = defaultFormat.format(accuracy);
     		String precisionFormatted = defaultFormat.format(precision);
     		String recallFormatted = defaultFormat.format(recall);
        
-        	System.out.println("Scores for language: " + languages[i] + "\nAccuracy: " + 
-        						accuracyFormatted + "\nPrecision: " + precisionFormatted + "\nRecall: " + recallFormatted + "\n");
+        	System.out.println("Scores for language: " + languages[i] + "\nPrecision: " + precisionFormatted + "\nRecall: " + recallFormatted + "\n");
         	
                 try {
-        			FileUtils.writeStringToFile(scoreFile, languages[i] + "\t" + accuracyFormatted + "___" + precisionFormatted + "___" + recallFormatted + "\n", true);
+        			FileUtils.writeStringToFile(scoreFile, languages[i] + "\t" + precisionFormatted + "___" + recallFormatted + "\n", true);
         		} catch (IOException e) {
         			throw new AnalysisEngineProcessException(e);
         		}        
 
 		}
+		
+        try {
+			FileUtils.writeStringToFile(scoreFile, "OVERALL_ACCURACY" + "\t" + accuracyFormatted, true);
+		} catch (IOException e) {
+			throw new AnalysisEngineProcessException(e);
+		}      
 		
     	printConfMatrix(confMatrix);
 		
