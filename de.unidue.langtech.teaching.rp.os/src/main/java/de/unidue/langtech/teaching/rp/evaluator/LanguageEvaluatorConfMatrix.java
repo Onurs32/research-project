@@ -185,6 +185,8 @@ public class LanguageEvaluatorConfMatrix
 		} catch (IOException e) {
 			throw new AnalysisEngineProcessException(e);
 		}      
+        
+        System.out.println("Overall Accuracy: " + accuracyFormatted + "\n");
 		
     	printConfMatrix(confMatrix);
 		
