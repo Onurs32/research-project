@@ -26,7 +26,8 @@ import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
 
 /**
  * Evaluates the baseline results.
- * Calculates scores (accuracy, precision, recall) for every language.
+ * Calculates scores (precision (= accuracy), recall) for every language.
+ * Overall accuracy is separately calculated!
  * Can print a confidence matrix for all given languages.
  * 
  * @author Onur
