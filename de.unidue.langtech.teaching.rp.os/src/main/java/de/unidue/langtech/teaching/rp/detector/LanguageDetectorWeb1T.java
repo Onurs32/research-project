@@ -144,10 +144,10 @@ public class LanguageDetectorWeb1T
             	maxLanguage = "x-unspecified";
             }
             
-//			Uncomment if getCertainty is used.      
+//			//Uncomment if getCertainty is used.      
 //          Map<String, Double> langProbabilities = getCertainty(langProbs);
 //          
-            //http://www.avajava.com/tutorials/lessons/how-do-i-use-numberformat-to-format-a-percent.html
+//            //http://www.avajava.com/tutorials/lessons/how-do-i-use-numberformat-to-format-a-percent.html
 //          NumberFormat defaultFormat = NumberFormat.getPercentInstance();
 //    		defaultFormat.setMinimumFractionDigits(2);
 //    		
@@ -232,10 +232,9 @@ public class LanguageDetectorWeb1T
     }
     
     @SuppressWarnings("unused")
-    /*
+    /* Show certainty for each language in numeric probabilities
      * Mathematics mainly based on http://stats.stackexchange.com/a/66621
-     * @param map
-     * @return
+     * Can slightly increase detection time 
      */
 	private Map<String, Double> getCertainty(Map<String,Double> map) 
     {
