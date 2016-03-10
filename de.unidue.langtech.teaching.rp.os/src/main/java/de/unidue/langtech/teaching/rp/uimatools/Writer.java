@@ -13,7 +13,7 @@ import org.apache.uima.jcas.JCas;
 import de.unidue.langtech.teaching.rp.type.OriginalLanguage;
 
 /**
- * Writes all further needed data to a file.
+ * Writes all further needed information to a file.
  * @author Onur
  *
  */

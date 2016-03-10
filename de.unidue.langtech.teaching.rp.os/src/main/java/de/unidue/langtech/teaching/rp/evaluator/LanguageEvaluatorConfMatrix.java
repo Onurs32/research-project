@@ -193,7 +193,7 @@ public class LanguageEvaluatorConfMatrix
 		
     }
     
-    /*
+    /* Prints the confidence matrix for a given map of languages.
      * Based on: http://stackoverflow.com/a/26857286/3677505
      */
     private void printConfMatrix(Map <String, Integer> confMatrix) 

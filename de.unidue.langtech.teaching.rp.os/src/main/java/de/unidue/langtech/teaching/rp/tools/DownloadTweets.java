@@ -10,7 +10,7 @@ import org.jsoup.nodes.Element;
 import de.tudarmstadt.ukp.dkpro.core.api.resources.DkproContext;
 
 /**
- * Download tweets by their ID.
+ * Download tweets by their status ID.
  * Used for TwitterLID corpus.
  * @author Onur
  *
@@ -36,7 +36,7 @@ public class DownloadTweets {
 								.replaceAll("dutch", "nl").replaceAll("spanish", "es");
 						String url = "https://www.twitter.com/anyuser/status/" + Long.parseLong(tweetid);
 						
-						//http://stackoverflow.com/a/24998098
+						//source: http://stackoverflow.com/a/24998098
 						Document doc = Jsoup.connect(url).get(); 
 						Element tweetText = doc.select("p.js-tweet-text.tweet-text").last();
 						Element privateTweet = doc.select("span.message-text").first(); //check if account is private

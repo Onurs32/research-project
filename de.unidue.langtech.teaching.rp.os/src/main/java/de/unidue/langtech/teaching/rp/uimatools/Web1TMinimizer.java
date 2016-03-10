@@ -19,9 +19,11 @@ public class Web1TMinimizer
 			throws IOException 
 	{
 		
-		LineIterator it = FileUtils.lineIterator(new File("D:/_Korpora/de_vocab"), "UTF-8"); //http://www.baeldung.com/java-read-lines-large-file
+		//source: http://www.baeldung.com/java-read-lines-large-file
+		LineIterator it = FileUtils.lineIterator(new File("D:/_Korpora/de_vocab"), "UTF-8"); 
     	
-        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File("D:/_Korpora/de_vocab_new"), true), "UTF-8"); //http://www.xyzws.com/javafaq/how-to-append-data-to-the-end-of-existing-file-in-java/165
+		//source: http://www.xyzws.com/javafaq/how-to-append-data-to-the-end-of-existing-file-in-java/165
+        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File("D:/_Korpora/de_vocab_new"), true), "UTF-8");
         BufferedWriter fbw = new BufferedWriter(writer);
         
 		try {
