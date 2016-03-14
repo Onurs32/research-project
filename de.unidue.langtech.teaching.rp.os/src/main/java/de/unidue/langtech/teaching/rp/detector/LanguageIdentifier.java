@@ -28,6 +28,7 @@ import org.knallgrau.utils.textcat.TextCategorizer;
 
 /**
  * LanguageIdentifier wrapped as in DKPro, but with option to choose own config files.
+ * @param langName2ISO does not influence range of language set!
  * @author Onur
  *
  */
