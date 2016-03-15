@@ -26,7 +26,7 @@ public class JLangDetect
      * Languages that should be considered. 
      */
     public static final String PARAM_LANGUAGES = "languages";
-    @ConfigurationParameter(name = PARAM_LANGUAGES, mandatory = true)
+    @ConfigurationParameter(name = PARAM_LANGUAGES, mandatory = false)
     private static String[] languages;
     
     private UberLanguageDetector detector;
